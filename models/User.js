@@ -18,17 +18,16 @@ const UserSchema = new mongoose.Schema({
       default: Date.now
     },
     favGenres: {
-        type: DOMStringList,
-        required: true
+        type: String
     },
     favActors: {
-        type: DOMStringList
+        type: String
     },
     countries: {
-        type: DOMStringList
+        type: String
     },
     minRating: {
-        type: Int8Array
+        type: Number
     }
 });
 
