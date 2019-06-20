@@ -2,48 +2,76 @@
     <meta charset="UTF-8">
     <title>Зарегистрироваться</title>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="/public/css/style.css" type="text/css">
 </head>
+
 <body>
-<p>Регистрация</p>
-<form id="register" method="post" action="/users/register">
-    <p><label for="name">Имя:</label></p>
-    <input
-            id="name"
-            name="name"
-            type="text"
-            placeholder="Как к вам обращаться?"
-            value="<%= typeof name != 'undefined' ? name : '' %>"
-    />
-    <p><label for="email">Почта<font color="red">*</font>:</label></p>
-    <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            placeholder="Введите вашу почту"
-            value="<%= typeof email != 'undefined' ? email : '' %>"
-    />
-    <div id="status"></div>
-    <p><label for="password">Пароль<font color="red">*</font>:</label></p>
-    <input
-            id="password"
-            name="password"
-            required
-            type="password"
-            placeholder="Придумайте пароль"
-            value="<%= typeof password != 'undefined' ? password : '' %>"
-    />
-    <p><label for="passwordCheck">Подтвердите пароль<font color="red">*</font>:</label></p>
-    <input
-            id="passwordCheck"
-            name="passwordCheck"
-            required
-            type="password"
-            placeholder="Подтвердите ваш пароль"
-            value=="<%= typeof passwordCheck != 'undefined' ? passwordCheck : '' %>"
-    />
-    <p></p>
-    <p><button type="submit">Создать аккаунт</button></p>
-    <a>Уже есть аккаунт? </a><a href="/users/login">Войти</a>
-</form>
+<div class='bold-line'></div>
+<div class='container'>
+    <div class='window'>
+        <div class='overlay'></div>
+        <div class='content'>
+            <div class='welcome'>Регистрация</div>
+            <div class='input-fields'>
+                <form id="register" method="post" action="/register">
+
+                    <label for="name">Имя:</label>
+                    <input
+                            id="name"
+                            name="name"
+                            type='text'
+                            placeholder='Ваше имя'
+                            class='input-line full-width'
+                            value="<%= typeof name != 'undefined' ? name : '' %>"
+                    />
+
+                    <label for="email">Почта<font color="red">*</font>:</label>
+                    <input
+                            id="email"
+                            name="email"
+                            type='email'
+                            placeholder='your_mail@email.ru'
+                            class='input-line full-width'
+                            value="<%= typeof email != 'undefined' ? email : '' %>"
+                            required
+                    />
+                    <a>
+                        <div id="status"></div>
+                    </a>
+
+                    <p><label for="password">Пароль<font color="red">*</font>:</label></p>
+                    <p><input
+                                type='password'
+                                placeholder='******'
+                                class='input-line full-width'
+                                id="password"
+                                name="password"
+                                required
+                                value="<%= typeof password != 'undefined' ? password : '' %>"
+                        />
+                    </p>
+
+                    <p><label for="passwordCheck">Подтвердите пароль<font color="red">*</font>:</label></p>
+                    <p><input
+                                type='password'
+                                placeholder='******'
+                                class='input-line full-width'
+                                id="passwordCheck"
+                                name="passwordCheck"
+                                required
+                                disabled
+                                value=="<%= typeof passwordCheck != 'undefined' ? passwordCheck : '' %>"
+                        /></p>
+                    <p id="error"></p>
+                    <p></p>
+                </form>
+            </div>
+            <div>
+                <button id="button" type="submit" class='ghost-round full-width'>Создать аккаунт</button>
+            </div>
+            <div class='reg'>Уже есть аккаунт? <a href="/users/login"><span class='highlight'>Войти</span></a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
