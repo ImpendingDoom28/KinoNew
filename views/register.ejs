@@ -1,0 +1,49 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Зарегистрироваться</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+<p>Регистрация</p>
+<form id="register" method="post" action="/users/register">
+    <p><label for="name">Имя:</label></p>
+    <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Как к вам обращаться?"
+            value="<%= typeof name != 'undefined' ? name : '' %>"
+    />
+    <p><label for="email">Почта<font color="red">*</font>:</label></p>
+    <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            placeholder="Введите вашу почту"
+            value="<%= typeof email != 'undefined' ? email : '' %>"
+    />
+    <div id="status"></div>
+    <p><label for="password">Пароль<font color="red">*</font>:</label></p>
+    <input
+            id="password"
+            name="password"
+            required
+            type="password"
+            placeholder="Придумайте пароль"
+            value="<%= typeof password != 'undefined' ? password : '' %>"
+    />
+    <p><label for="passwordCheck">Подтвердите пароль<font color="red">*</font>:</label></p>
+    <input
+            id="passwordCheck"
+            name="passwordCheck"
+            required
+            type="password"
+            placeholder="Подтвердите ваш пароль"
+            value=="<%= typeof passwordCheck != 'undefined' ? passwordCheck : '' %>"
+    />
+    <p></p>
+    <p><button type="submit">Создать аккаунт</button></p>
+    <a>Уже есть аккаунт? </a><a href="/users/login">Войти</a>
+</form>
+</body>

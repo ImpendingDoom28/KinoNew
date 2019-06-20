@@ -1,0 +1,23 @@
+<p>Добро пожаловать на KinoNew! Только здесь вы сможете узнать о всех самых свежих новинках киноиндустриии и сериалов в наиболее подробной форме!</p>
+<p>Для использования нашего сайта необходимо войти в систему</p>
+<form method="post" action="/login">
+    <p><label for="login">Почта:</label></p>
+    <input
+            id="login"
+            name="login"
+            type="email"
+            required
+    />
+    <p><label for="password">Пароль:</label></p>
+    <input
+            id="password"
+            name="password"
+            required
+            type="password"
+    />
+    <input type="submit">
+    <p><a>Первый раз? </a></p>
+    <a href="/users/register">Зарегистрироваться</a>
+    <p></p><p>Или</p>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+</form>
