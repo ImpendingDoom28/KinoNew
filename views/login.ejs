@@ -1,11 +1,11 @@
 <p>Добро пожаловать на KinoNew! Только здесь вы сможете узнать о всех самых свежих новинках киноиндустриии и сериалов в наиболее подробной форме!</p>
 <p>Для использования нашего сайта необходимо войти в систему</p>
 <% include ./partials/messages.ejs %>
-<form method="post" action="/login">
-    <p><label for="login">Почта:</label></p>
+<form method="post" action="/users/login">
+    <p><label for="email">Почта:</label></p>
     <input
-            id="login"
-            name="login"
+            id="email"
+            name="email"
             type="email"
             required
     />
@@ -13,8 +13,8 @@
     <input
             id="password"
             name="password"
-            required
             type="password"
+            required
     />
     <input type="submit">
     <p><a>Первый раз? </a></p>

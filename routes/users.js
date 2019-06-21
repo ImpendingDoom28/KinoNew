@@ -1,14 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
+const { forwardAuthenticated } = require('../config/auth');
+
 // User model
 const User = require('../models/User');
 
 // Login Page
-router.get('/login', (req, res) => res.render("login"));
+router.get('/login', forwardAuthenticated, (req, res) => res.render("login"));
 
 // Register Page
-router.get('/register', (req, res) => res.render("register")) ;
+router.get('/register', forwardAuthenticated, (req, res) => res.render("register"));
 
 // Register Handle
 router.post('/register', (req, res) => {
@@ -25,7 +28,7 @@ router.post('/register', (req, res) => {
 
     if(errors.length > 0) {
         res.render('register', {
-            errors, email, name, password
+            errors, email, name, password, passwordCheck
         });
     } else {
         //Validation passed
@@ -36,7 +39,7 @@ router.post('/register', (req, res) => {
                     // rerender register page
                     errors.push({msg: 'Пользователь с почтой ' + email + ' уже существует!'});
                     res.render('register', {
-                        errors, email, name, password
+                        errors, email, name, password, passwordCheck
                     });
                 } else {
                     const newUser = new User({
@@ -61,6 +64,22 @@ router.post('/register', (req, res) => {
                 }
             });
     }
+});
+
+// Login Handle
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local',{
+        successRedirect: '/home',
+        failureRedirect: '/users/login',
+        failureFlash: true
+    })(req, res, next);
+});
+
+//Logout Handle
+router.get('/logout', (req, res) => {
+    req.logout();
+    req.flash('success_msg', 'Вы вышли со своего аккаунта');
+    res.redirect('/users/login');
 });
 
 module.exports = router;
