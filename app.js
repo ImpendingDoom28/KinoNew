@@ -13,6 +13,9 @@ require('./config/passport')(passport);
 //DB Config
 const db = require('./config/keys').MongoURI;
 
+//Public directory
+app.use(express.static(__dirname + '/public'));
+
 //Connect to MongoDB
 mongoose.connect(db, { useNewUrlParser: true })
     .then(() => console.log('MongoDB Connected....'))

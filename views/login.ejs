@@ -1,40 +1,34 @@
-
-<link rel="stylesheet" href="/public/css/style.css" type="text/css">
-<div class='bold-line'><p>Добро пожаловать на KinoNew! Только здесь вы сможете узнать о всех самых свежих новинках киноиндустриии и сериалов в наиболее подробной форме!</p>
-<p>Для использования нашего сайта необходимо войти в систему</p></div>
+<-- Добро пожаловать на KinoNew! Только здесь вы сможете узнать о всех самых свежих новинках киноиндустриии и сериалов в наиболее подробной форме!>
+<% include ./partials/messages.ejs %>
+<div class='bold-line'></div>
 <div class='container'>
     <div class='window'>
         <div class='overlay'></div>
         <div class='content'>
             <div class='welcome'>Вход</div>
-            <% include ./partials/messages.ejs %>
             <div class='subtitle'>Для использования нашего сайта необходимо войти в систему</div>
             <div class='input-fields'>
-                <form method="post" action="/login">
-                    <p><label for="login">Почта:</label></p>
+                <form method="post" action="/users/login">
+                    <p><label for="email">Почта:</label></p>
                     <input 
-                        id="login" 
-                        name="login" 
+                        id="email"
+                        name="email"
                         type='email' 
-                        placeholder='ВВедите вашу почту' 
-                        class='input-line full-width' required
+                        placeholder='Введите вашу почту'
+                        class='input-line full-width'
                     />
                     <p><label for="password">Пароль:</label></p>
                     <input 
                         id="password" 
-                        name="password" 
-                        required 
+                        name="password"
                         type='password' 
-                        placeholder='Password' 
+                        placeholder='******'
                         class='input-line full-width'
                     />
+                    <div class="button">
+                        <input type="submit" class="ghost-round full-width">
+                    </div>
                 </form>
-            </div>
-            <div class="button">
-                <input 
-                    class='ghost-round full-width' 
-                    type="submit"
-                />
             </div>
             <div class='spacing'>или <div class="g-signin2" data-onsuccess="onSignIn"></div></div>
             <div class='reg'>Первый раз? <a href="/users/register"><span class='highlight'>Зарегистрироваться</span></a></div>

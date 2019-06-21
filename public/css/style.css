@@ -166,7 +166,8 @@ label {
 .subtitle {
     text-align: center;
     line-height: 1em;
-    font-weight: 100;
+    font-weight: 200;
+    font-size: large;
     letter-spacing: 0px;
     letter-spacing: 0.02rem;
 }
