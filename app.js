@@ -67,3 +67,8 @@ app.use('/account', require('./routes/account'));
 function init() {
     app.listen(PORT, console.log(`Server started on port ${PORT}`));
 }
+
+app.use((req, res, next) => {
+    console.log('%s %s %s', req.method, req.url, req.path);
+    next();
+});
