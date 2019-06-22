@@ -8,13 +8,8 @@ const { flashError } = require('../config/error-handler');
 // User model
 const User = require('../models/User');
 
-router.use((req, res, next) => {
-    console.log('%s %s %s', req.method, req.url, req.path);
-    next();
-});
-
 // Login Page
-router.get('/login', checkIsNotLogged, (req, res) => res.render("login"));
+router.get('/login', checkIsNotLogged, (req, res) => res.render('login'));
 
 // Register Page
 router.get('/register', checkIsNotLogged, (req, res) => res.render("register"));

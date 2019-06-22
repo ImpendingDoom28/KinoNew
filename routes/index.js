@@ -2,13 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { checkIsLogged, checkIsNotLogged } = require('../config/auth');
 //TODO Ринат, расскоменти и если ошибки - реши
-// const tmdb = require('tmdbv3').init(key);
-
-// simple logger for this router's requests
-router.use((req, res, next) => {
-    console.log('%s %s %s', req.method, req.url, req.path);
-    next();
-});
+const tmdb = require('tmdbv3').init(require('../config/keys').tmdbKey);
 
 // Main page is the login page
 router.get('/', checkIsNotLogged, (req, res) => res.redirect('/users/login'));
@@ -18,7 +12,6 @@ router.get('/home', checkIsLogged, (req, res) => {
     res.render('home', {
             user: req.user
         });
-    }
-);
+});
 
 module.exports = router;
