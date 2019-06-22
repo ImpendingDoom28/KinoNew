@@ -1,6 +1,20 @@
-<% include ./partials/messages.ejs %>
-<div class='bold-line'></div>
-<div class='container'>
+<% if((typeof errors != 'undefined') || (error != '') || (error_msg != '') || (success_msg != '')) {%>
+    <div id = "msg_alert" >
+        <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+                onclick="hide(document.getElementById('msg_alert'))">
+            <span style="margin: 1% 10px" aria-hidden="true">&times;</span>
+        </button>
+        <% if((typeof errors != 'undefined') || (error != '') || (error_msg != '')) {%>
+            <div class='msg_name'>Ошибка</div>
+        <% } %>
+        <% include ./partials/messages.ejs %>
+    </div>
+<% } %>
+<div class='container2'>
     <div class='window'>
         <div class='overlay'></div>
         <div class='content'>
@@ -31,32 +45,32 @@
                     </a>
                     <label for="password">Пароль<font color="red">*</font>:</label>
                     <input
-                                type='password'
-                                placeholder='******'
-                                class='input-line full-width'
-                                id="password"
-                                name="password"
-                                required
-                                value="<%= typeof password != 'undefined' ? password : '' %>"
-                        />
+                            type='password'
+                            placeholder='******'
+                            class='input-line full-width'
+                            id="password"
+                            name="password"
+                            required
+                            value="<%= typeof password != 'undefined' ? password : '' %>"
+                    />
                     <label for="passwordCheck">Подтвердите пароль<font color="red">*</font>:</label>
                     <input
-                                type='password'
-                                placeholder='******'
-                                class='input-line full-width'
-                                id="passwordCheck"
-                                name="passwordCheck"
-                                required
-                                value=="<%= typeof passwordCheck != 'undefined' ? passwordCheck : '' %>"
-                        />
+                            type='password'
+                            placeholder='******'
+                            class='input-line full-width'
+                            id="passwordCheck"
+                            name="passwordCheck"
+                            required
+                            value=="<%= typeof passwordCheck != 'undefined' ? passwordCheck : '' %>"
+                    />
                     <p id="error"></p>
                     <div>
                         <button id="button" type="submit" class='ghost-round full-width'>Создать аккаунт</button>
                     </div>
                 </form>
             </div>
-            <div class='reg'>Уже есть аккаунт? <a href="/users/login"><span class='highlight'>Войти</span></a>
-            </div>
+            <div class='reg'>Уже есть аккаунт? <a href="/users/login"><span class='highlight'>Войти</span></a></div>
+
         </div>
     </div>
 </div>
