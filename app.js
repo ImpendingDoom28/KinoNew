@@ -8,7 +8,10 @@ const session = require('express-session');
 const app = express();
 
 //Passport config
-require('./config/passport')(passport);
+const localPassport = require('./config/passport')(passport);
+
+//Google passport config
+const googlePassport = require('./config/passport-google')(passport);
 
 //DB Config
 const db = require('./config/keys').MongoURI;
@@ -18,7 +21,10 @@ app.use(express.static(__dirname + '/public'));
 
 //Connect to MongoDB
 mongoose.connect(db, { useNewUrlParser: true })
-    .then(() => console.log('MongoDB Connected....'))
+    .then(() => {
+        console.log('MongoDB Connected....');
+        init();
+    })
     .catch(err => console.log(err));
 
 const PORT = process.env.PORT || 5000;
@@ -55,5 +61,9 @@ app.use((req, res, next) => {
 // Routes
 app.use('/users', require('./routes/users'));
 app.use('/', require('./routes/index'));
+app.use('/auth', require('./routes/auth'));
+app.use('/account', require('./routes/account'));
 
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
+function init() {
+    app.listen(PORT, console.log(`Server started on port ${PORT}`));
+}

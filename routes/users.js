@@ -2,16 +2,22 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-const { forwardAuthenticated } = require('../config/auth');
+const { checkIsNotLogged } = require('../config/auth');
+const { flashError } = require('../config/error-handler');
 
 // User model
 const User = require('../models/User');
 
+router.use((req, res, next) => {
+    console.log('%s %s %s', req.method, req.url, req.path);
+    next();
+});
+
 // Login Page
-router.get('/login', forwardAuthenticated, (req, res) => res.render("login"));
+router.get('/login', checkIsNotLogged, (req, res) => res.render("login"));
 
 // Register Page
-router.get('/register', forwardAuthenticated, (req, res) => res.render("register"));
+router.get('/register', checkIsNotLogged, (req, res) => res.render("register"));
 
 // Register Handle
 router.post('/register', (req, res) => {
@@ -48,19 +54,29 @@ router.post('/register', (req, res) => {
                         password
                     });
                     // Hash Password
-                    bcrypt.genSalt(10, (err, salt) =>
-                        bcrypt.hash(newUser.password, salt, (err, hash) => {
-                            if(err) throw err;
-                            //Set password to hashed password
-                            newUser.password = hash;
-                            //Save user
-                            newUser.save()
-                                .then(user => {
-                                    req.flash('success_msg', 'Вы успешно зарегистрировались и теперь можете авторизоваться');
-                                    res.redirect('/users/login');
+                    bcrypt.genSalt(10)
+                        .then((hash) => {
+                            bcrypt.hash(newUser.password, salt)
+                                .then((hash) => {
+                                    //Set password to hashed password
+                                    newUser.password = hash;
+                                    //Save user
+                                    newUser.save()
+                                        .then(user => {
+                                            req.flash('success_msg', 'Вы успешно зарегистрировались и теперь можете авторизоваться');
+                                            res.redirect('/users/login');
+                                        })
+                                        .catch(err => {
+                                            flashError(req, res, err);
+                                        })
                                 })
-                                .catch(err => console.log(err));
-                        }))
+                                .catch( err => {
+                                    flashError(req, res, err);
+                                })
+                        })
+                        .catch(err => {
+                            flashError(req, res, err);
+                        });
                 }
             });
     }

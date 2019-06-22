@@ -1,14 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
+const { checkIsLogged, checkIsNotLogged } = require('../config/auth');
+const tmdb = require('tmdbv3').init(key);
+
+// simple logger for this router's requests
+router.use((req, res, next) => {
+    console.log('%s %s %s', req.method, req.url, req.path);
+    next();
+});
 
 // Main page is the login page
-router.get('/', forwardAuthenticated, (req, res) => res.render('login'));
+router.get('/', checkIsNotLogged, (req, res) => res.redirect('/users/login'));
 
-router.get('/home', ensureAuthenticated, (req, res) =>
+router.get('/home', checkIsLogged, (req, res) => {
+    //TODO Ринат, вставлять сюда
     res.render('home', {
-        user: req.user
-    })
+            user: req.user
+        });
+    }
 );
 
 module.exports = router;
