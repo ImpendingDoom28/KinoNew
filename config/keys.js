@@ -3,5 +3,6 @@ module.exports = {
     google: {
         clientID: '1049314896950-lovav96va20ca8k13p13hkrgk93u6cu5.apps.googleusercontent.com',
         clientSecret: 'ypN13mOcnRspXIw4jw_QguAi'
-    }
-}
+    },
+    tmdbKey: 'f1bb885a34819055db8514823f6050a4'
+};
