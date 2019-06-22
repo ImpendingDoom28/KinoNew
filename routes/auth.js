@@ -2,7 +2,12 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-const { forwardAuthenticated } = require('../config/auth');
+const { checkIsNotLogged } = require('../config/auth');
+
+router.use((req, res, next) => {
+    console.log('%s %s %s', req.method, req.url, req.path);
+    next();
+});
 
 router.get('/google',
     passport.authenticate('google', {
@@ -10,11 +15,12 @@ router.get('/google',
     })
 );
 // Callback route for google to redirect to
-router.get('/google/redirect', (req, res, next) => {
-        passport.authenticate('google', {
-            successRedirect: '/home',
+router.get('/google/redirect',
+    passport.authenticate('google', {
             failureRedirect: '/users/login'
-        })(req,res,next)
+    }),
+    (req, res) => {
+        res.redirect('/home');
     }
 );
 
