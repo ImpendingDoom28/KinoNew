@@ -1,4 +1,14 @@
-Добро пожаловать на страницу настроек! Здесь вы сможете настроить новинки по своим предпочтениям!
-<form method="post" action="../routes/index.js">
+<div class="container2">
+    <header>
+        <div class='welcome'>
+            <h1>Добро пожаловать в настройки  <%= typeof name != 'undefined' ? ', ' + user.name : ''%>! Здесь вы сможете настроить новинки по своим предпочтениям!</h1>
+        </div>
+        <nav>
+            <a href="/users/logout" class="btn btn-secondary">Выйти</a>
+            <a href="/home" class="btn btn-secondary">Главная</a>
+        </nav>
+    </header>
+    <form method="post" action="../routes/index.js">
 
-</form>
+    </form>
+</div>

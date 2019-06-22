@@ -2,9 +2,10 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const googleKeys = require('./keys').google;
+const { flashError } = require('../config/error-handler');
 
-// Load User model
-const User = require('../models/User');
+// Load GoogleUser model
+const GoogleUser = require('../models/GoogleUser');
 
 module.exports = (passport) => {
     passport.use(
@@ -12,34 +13,44 @@ module.exports = (passport) => {
             //Options for Google Strategy
             clientID: googleKeys.clientID,
             clientSecret: googleKeys.clientSecret,
-            callbackURL: '/auth/google/redirect'
+            callbackURL: 'http://localhost:5000/auth/google/redirect'
         }, (accessToken, refreshToken, profile, done) => {
+            // GoogleUser.findOrCreate({ googleId: profile.id, email: profile.emails[0].email, name: profile.name }, function (err, user) {
+            //     console.log('New user was succesfully created with Google!!!');
+            //     return done(err, user);
+            // });
             //Passport callback function
-            User.findOne({email: profile.email}
+            GoogleUser.findOne({googleID: profile.id})
                 .then(user => {
-                    if (!user) {
-                        new User({
-                            name: profile.displayName,
-                            email: profile.emails[0].email,
-                            password: ''
-                        }).save().then(newUser => {
-                            console.log('New user ' + newUser + ' was succesfully created!!!');
-                        });
+                    if (user) {
+                       return done(null, user);
                     } else {
-                        return done(null, false, {message: "Пользователь не существует"});
+                        console.log(profile);
+                        console.log(profile.displayName);
+                        console.log(profile.emails[0].value);
+                        const newUser = new GoogleUser({
+                            name: profile.displayName,
+                            googleID: profile.id,
+                            email: profile.emails[0].value
+                        });
+                        newUser.save()
+                            .then(newUser => {
+                                console.log('New user ' + newUser + ' was succesfully created!!!');
+                                return done(null, user);
+                            });
                     }
-                    console.log(profile);
-                    console.log(profile.displayName);
-                    console.log(profile.emails[0].email);
                 })
-            );
+                .catch((err) => console.log(err))
         })
     );
 
     passport.serializeUser((user, done) => {
         done(null, user);
     });
-    passport.deserializeUser((user, done) => {
-        done(null, user);
+
+    passport.deserializeUser((id, done) => {
+        GoogleUser.findById(id).then((user) => {
+            done(null, user);
+        })
     });
 };

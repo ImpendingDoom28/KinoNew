@@ -55,7 +55,7 @@ router.post('/register', (req, res) => {
                     });
                     // Hash Password
                     bcrypt.genSalt(10)
-                        .then((hash) => {
+                        .then((salt) => {
                             bcrypt.hash(newUser.password, salt)
                                 .then((hash) => {
                                     //Set password to hashed password
@@ -85,7 +85,7 @@ router.post('/register', (req, res) => {
 // Login Handle
 router.post('/login', (req, res, next) => {
     passport.authenticate('local',{
-        successRedirect: '/home',
+        successRedirect: '/account/settings',
         failureRedirect: '/users/login',
         failureFlash: true
     })(req, res, next);
