@@ -1,5 +1,5 @@
-<% if((typeof errors != 'undefined') || (error != '') || (error_msg != '') || (success_msg != '')) {%>
-    <div id = "msg_alert" >
+<% if((typeof errors != 'undefined') || (error != '') || (error_msg != '') || (success_msg != '')) { %>
+    <div id="msg_alert">
         <button
                 type="button"
                 class="close"
@@ -8,18 +8,18 @@
                 onclick="hide(document.getElementById('msg_alert'))">
             <span style="margin: 1% 10px" aria-hidden="true">&times;</span>
         </button>
-        <% if((typeof errors != 'undefined') || (error != '') || (error_msg != '')) {%>
+        <% if((typeof errors != 'undefined') || (error != '') || (error_msg != '')) { %>
             <div class='msg_name'>Ошибка</div>
-        <% }  %>
+        <% } %>
         <% include ./partials/messages.ejs %>
     </div>
 <% } %>
 
 <div class='container2'>
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id" content="1049314896950-lovav96va20ca8k13p13hkrgk93u6cu5.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id"
+          content="1049314896950-lovav96va20ca8k13p13hkrgk93u6cu5.apps.googleusercontent.com">
     <div class='window'>
-        <div class='overlay'></div>
         <div class='content'>
             <div class='welcome'>
                 Вход
@@ -30,33 +30,32 @@
             <div class='input-fields'>
                 <form method="post" action="/users/login">
                     <p><label for="email">Почта:</label></p>
-                    <input 
-                        id="email"
-                        name="email"
-                        type='email' 
-                        placeholder='Введите вашу почту'
-                        class='input-line full-width'
+                    <input
+                            id="email"
+                            name="email"
+                            type='email'
+                            placeholder='Введите вашу почту'
+                            class='input-line full-width'
                     />
                     <p><label for="password">Пароль:</label></p>
-                    <input 
-                        id="password" 
-                        name="password"
-                        type='password' 
-                        placeholder='******'
-                        class='input-line full-width'
+                    <input
+                            id="password"
+                            name="password"
+                            type='password'
+                            placeholder='******'
+                            class='input-line full-width'
                     />
                     <div class="button">
                         <input type="submit" class="ghost-round full-width">
                     </div>
                 </form>
             </div>
-            <div class='spacing'>или
+            <div class='spacing'> или <br/>
                     <a href="/auth/google" data-width="310" data-height="35" data-longtitle="true">Войти с помощью Google</a>
             </div>
-        </div>
-        <div class='reg'>
-            Первый раз? <a href="/users/register"><span class='highlight'>Зарегистрироваться</span></a>
-        </div>
-
+            <br/>
+            <div class='reg'>
+                Первый раз? <a href="/users/register"><span class='highlight'>Зарегистрироваться</span></a>
+            </div>
     </div>
 </div>
