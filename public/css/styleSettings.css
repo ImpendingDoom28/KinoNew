@@ -1,0 +1,128 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500);
+
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    margin: 0;
+}
+
+body {
+    color: #fff;
+    background: linear-gradient(to top left, #EE7752, #E73C7E, #23A6D5);
+    background-size: 400% 400%;
+}
+
+.container2 {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin-top: 5%;
+    height: 100%;
+    float: right;
+}
+input {
+    border: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.65);
+}
+.input-line {
+    background: none;
+    margin-bottom: 10px;
+    line-height: 2.4em;
+    color: #fff;
+    font-family: roboto;
+    font-weight: 300;
+    letter-spacing: 0px;
+    letter-spacing: 0.02rem;
+    font-size: 19px;
+    font-size: 1.2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+}
+
+.input-line:focus {
+    outline: none;
+    border-color: #fff;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+}
+
+.ghost-round {
+    cursor: pointer;
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 25px;
+    color: rgba(255, 255, 255, 0.65);
+    -webkit-align-self: flex-end;
+    align-self: flex-end;
+    font-size: 19px;
+    font-size: 1.2rem;
+    font-family: roboto;
+    font-weight: 300;
+    line-height: 2.5em;
+    margin-top: 2%;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+}
+
+.ghost-round:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.input-fields {
+    margin-top: 25px;
+    border: 5px solid #000000;
+    border-radius: 26px;
+    padding: 15px;
+    width: 40%;
+    margin-left: 45%;
+    margin-right: auto;
+
+}
+
+label {
+    cursor: default;
+    font: 16px roboto;
+}
+
+
+.welcome {
+    margin-left: 30%;
+    font-weight: 200;
+    margin-top: 5%;
+    text-align: center;
+    font-size: 40px;
+    font-size: 2.5rem;
+    letter-spacing: 0px;
+    letter-spacing: 0.05rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+@media (max-width: 500px) {
+    .window {
+        width: 100%;
+        height: 100%;
+    }
+}
