@@ -1,7 +1,21 @@
-<-- Добро пожаловать на KinoNew! Только здесь вы сможете узнать о всех самых свежих новинках киноиндустриии и сериалов в наиболее подробной форме!>
-<% include ./partials/messages.ejs %>
-<div class='bold-line'></div>
-<div class='container'>
+<% if((typeof errors != 'undefined') || (error != '') || (error_msg != '') || (success_msg != '')) {%>
+    <div id = "msg_alert" >
+        <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+                onclick="hide(document.getElementById('msg_alert'))">
+            <span style="margin: 1% 10px" aria-hidden="true">&times;</span>
+        </button>
+        <% if((typeof errors != 'undefined') || (error != '') || (error_msg != '')) {%>
+            <div class='msg_name'>Ошибка</div>
+        <% }  %>
+        <% include ./partials/messages.ejs %>
+    </div>
+<% } %>
+
+<div class='container2'>
     <div class='window'>
         <div class='overlay'></div>
         <div class='content'>
@@ -33,5 +47,6 @@
             <div class='spacing'>или <div class="g-signin2" data-onsuccess="onSignIn"></div></div>
             <div class='reg'>Первый раз? <a href="/users/register"><span class='highlight'>Зарегистрироваться</span></a></div>
         </div>
+
     </div>
 </div>
