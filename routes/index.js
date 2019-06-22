@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { checkIsLogged, checkIsNotLogged } = require('../config/auth');
-const tmdb = require('tmdbv3').init(key);
+//TODO Ринат, расскоменти и если ошибки - реши
+// const tmdb = require('tmdbv3').init(key);
 
 // simple logger for this router's requests
 router.use((req, res, next) => {
