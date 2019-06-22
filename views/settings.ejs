@@ -1,63 +1,62 @@
+<link href="/css/styleSettings.css" rel="stylesheet" type="text/css">
+<% include header.ejs %>
 <div class="container2">
-    <header>
-        <div class='welcome'>
-            <h1>Добро пожаловать в настройки  <%= typeof name != 'undefined' ? ', ' + user.name : ''%>! Здесь вы сможете настроить новинки по своим предпочтениям!</h1>
+    <div class='content'>
+        <div class='welcome'><h1>Добро пожаловать в настройки <%= typeof name != 'undefined' ? ', ' + user.name : '' %>!
+                Здесь вы сможете настроить новинки по своим предпочтениям!</h1></div>
+        <div class='input-fields'>
+            <form method="post" action="/account/settings">
+                <label for="favGenres">Список любимых жанров:</label>
+                <datalist id="favGenres">
+                    <option>УЖАСЫ</option>
+                    <option>ПРИКЛЮЧЕНИЯ</option>
+                    <option>КОМЕДИЯ</option>
+                    <option>СЕМЕЙНЫЙ</option>
+                    <option>МУЛЬТФИЛЬМ</option>
+                    <option>БОЕВИК</option>
+                    <option>ФАНТАСТИКА</option>
+                    <option>ДОКУМЕНТАЛЬНЫЙ</option>
+                    <option>ВОЙНА И ПОЛИТИКА</option>
+                    <option>ДРАМА</option>
+                    <option>НФ И ФЭНТЕЗИ</option>
+                    <option>ТРИЛЛЕР</option>
+                    <option>ДЕТЕКТИВ</option>
+                </datalist>
+                <input
+                        id="favGenres"
+                        name="favGenres"
+                        list="favGenres"
+                        placeholder="Введите жанр"
+                        class='input-line full-width'
+                />
+                <label for="favActors">Список любимых актёров:</label>
+                <input
+                        id="favActors"
+                        name="favActors"
+                        list="favActors"
+                        placeholder="Введите имя актёра"
+                        class='input-line full-width'
+                />
+                <label for="countries">Список стран производителей:</label>
+                <input
+                        id="countries"
+                        name="countries"
+                        list="countries"
+                        placeholder="Введите страну"
+                        class='input-line full-width'
+                />
+                <label for="minRating">Минимальный рейтинг фильма/сериала(по 100 балльной шкале):</label>
+                <input
+                        id="minRating"
+                        name="minRating"
+                        list="minRating"
+                        placeholder="Введите рейтинг"
+                        class='input-line full-width'
+                />
+                <div class="button">
+                    <input type="submit" value="Сохранить" class="ghost-round full-width">
+                </div>
+            </form>
         </div>
-        <nav>
-            <a href="/users/logout" class="btn btn-secondary">Выйти</a>
-            <a href="/home" class="btn btn-secondary">Главная</a>
-        </nav>
-    </header>
-    <form method="post" action="/account/settings">
-        <label for="favGenres">Список любимых жанров:</label>
-        <datalist id="favGenres">
-            <option>УЖАСЫ</option>
-            <option>ПРИКЛЮЧЕНИЯ</option>
-            <option>КОМЕДИЯ</option>
-            <option>СЕМЕЙНЫЙ</option>
-            <option>МУЛЬТФИЛЬМ</option>
-            <option>БОЕВИК</option>
-            <option>ФАНТАСТИКА</option>
-            <option>ДОКУМЕНТАЛЬНЫЙ</option>
-            <option>ВОЙНА И ПОЛИТИКА</option>
-            <option>ДРАМА</option>
-            <option>НФ И ФЭНТЕЗИ</option>
-            <option>ТРИЛЛЕР</option>
-            <option>ДЕТЕКТИВ</option>
-        </datalist>
-        <input
-                id="favGenres"
-                name="favGenres"
-                list="favGenres"
-                placeholder="Введите жанр"
-                class='input-line full-width'
-        />
-        <label for="favActors">Список любимых актёров:</label>
-        <input
-                id="favActors"
-                name="favActors"
-                list="favActors"
-                placeholder="Введите имя актёра"
-                class='input-line full-width'
-        />
-        <label for="countries">Список стран производителей:</label>
-        <input
-                id="countries"
-                name="countries"
-                list="countries"
-                placeholder="Введите страну"
-                class='input-line full-width'
-        />
-        <label for="minRating">Минимальный рейтинг фильма/сериала(по 100 балльной шкале):</label>
-        <input
-                id="minRating"
-                name="minRating"
-                list="minRating"
-                placeholder="Введите рейтинг"
-                class='input-line full-width'
-        />
-        <div class="button">
-            <input type="submit" value="Сохранить" class="ghost-round full-width">
-        </div>
-    </form>
+    </div>
 </div>
