@@ -10,23 +10,39 @@ const User = require('../models/User');
 router.get('/settings', checkIsLogged, (req, res, next) => {
     res.render('settings', {user: req.body.user});
 });
-
 router.post('/settings', checkIsLogged, (req, res, next) => {
-    //TODO забирать с каждого поля информацию и изменять параметры юзера
-    let {favGenres, favActors, countries, minRating} = req.body;
+    const {favGenre, favActors, countries, minRating} = req.body;
+    console.log(req.body);
     User.findOne({email: req.user.email})
         .then((user) => {
             if(user) {
-                user.favGenres = favGenres;
-                user.favActors = favActors;
-                user.countries = countries;
+                // if(favGenres) {
+                //     favGenres.forEach((item) => {
+                //         if(item !== '') {
+                //             user.favGenres.push(item);
+                //         }
+                //     });
+                // }
+                // if(favActors) {
+                //     favActors.forEach((item) => {
+                //         if(item !== '') {
+                //             user.favActors.push(item);
+                //         }
+                //     });
+                // }
+                // if(countries) {
+                //     countries.forEach((item) => {
+                //         if(item !== '') {
+                //             user.countries.push(item);
+                //         }
+                //     })
+                // }
                 user.minRating = minRating;
-                res.render('settings');
-                console.log('settings post done');
                 console.log(user);
+                res.render('settings', {favGenre, favActors, countries, minRating});
             }
         })
-        .catch((err) => flashError(req, res, err));
+        .catch((err) => console.log(err));
 });
 
 module.exports = router;
