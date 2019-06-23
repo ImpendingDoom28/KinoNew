@@ -18,13 +18,13 @@ const UserSchema = new mongoose.Schema({
       default: Date.now
     },
     favGenres: {
-        type: String
+        type: [String]
     },
     favActors: {
-        type: String
+        type: [String]
     },
     countries: {
-        type: String
+        type: [String]
     },
     minRating: {
         type: Number
