@@ -12,11 +12,8 @@ router.post('/settings', checkIsLogged, (req, res, next) => {
     const {favGenre, favActors, countries, minRating} = req.body;
     const errors = [];
     console.log(req.body);
-    if(favGenre.length === 0) {
-        errors.push({msg: 'Вы не указали ни одного жанра!'});
-    }
-    if(favActors.length === 0) {
-        errors.push({msg: 'Вы не указали ни одного актёра!'});
+    if(favGenre.length === 0 && favActors.length === 0) {
+        errors.push({msg: 'Вы ничего не указали!'});
     }
     if(errors.length > 0) {
         res.render('settings', {errors, favGenre, favActors, countries, minRating});
