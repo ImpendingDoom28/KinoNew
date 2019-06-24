@@ -8,29 +8,18 @@
         <div class='input-fields'>
             <form method="post" action="/account/settings">
                 <label for="favGenre">Список любимых жанров:</label>
-                <datalist id="favGenre" onload="getGenres()">
-                    <option>УЖАСЫ</option>
-                    <option>ПРИКЛЮЧЕНИЯ</option>
-                    <option>КОМЕДИЯ</option>
-                    <option>СЕМЕЙНЫЙ</option>
-                    <option>МУЛЬТФИЛЬМ</option>
-                    <option>БОЕВИК</option>
-                    <option>ФАНТАСТИКА</option>
-                    <option>ДОКУМЕНТАЛЬНЫЙ</option>
-                    <option>ВОЙНА И ПОЛИТИКА</option>
-                    <option>ДРАМА</option>
-                    <option>НФ И ФЭНТЕЗИ</option>
-                    <option>ТРИЛЛЕР</option>
-                    <option>ДЕТЕКТИВ</option>
+                <datalist id="favGenreDatalist">
+
                 </datalist>
                     <ul id="favGenresList">
                         <li>
                             <input
                                     id="favGenre"
                                     name="favGenre"
-                                    list="favGenre"
-                                    placeholder="Введите жанр"
+                                    list="favGenreDatalist"
+                                    placeholder="Начните вводить жанр..."
                                     class='input-line full-width'
+                                    onload="getGenres()"
                                     onchange="addNewRow()"
                                     value="<%= typeof favGenre != 'undefined' ? favGenre : '' %>"
                             />
