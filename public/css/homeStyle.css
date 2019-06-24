@@ -1,0 +1,64 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500);
+html, body {
+    padding: 0;
+    margin: 0;
+}
+body {
+    color: #fff;
+    background: linear-gradient(to top left, #EE7752, #E73C7E, #23A6D5);
+    background-size: 400% 400%;
+}
+.container {
+    margin: 0;
+    padding-right: 0;
+    padding-left: 0;
+    max-width: none;
+}
+
+.welcome {
+    width: 100%;
+    font-weight: 200;
+    margin-top: 20px;
+    margin-bottom: 50px;
+
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-size: 2.5rem;
+    letter-spacing: 0px;
+    letter-spacing: 0.05rem;
+    padding-right: 40px;
+    padding-left: 40px;
+}
+h1.welcome-text {
+    text-align: center;
+
+}
+
+.container2 {
+    height: 100%;
+    width: 100%;
+}
+
+.news-wrapper {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.text-news {
+    display: block;
+}
+.slider {
+    width: 80%;
+    box-sizing: border-box;
+    height: 300px;
+}
+.slide {
+    width: 100%;
+    outline: none;
+    height: 300px;
+}
+img {
+    width: 200px;
+    height: 300px;
+}
