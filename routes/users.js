@@ -17,7 +17,7 @@ router.get('/register', checkIsNotLogged, (req, res) => res.render("register"));
 // Register Handle
 router.post('/register', (req, res) => {
     const { name, email, password, passwordCheck } = req.body;
-    let errors = [];
+    const errors = [];
     // Check password length
     if(password.length < 6) {
         errors.push({ msg: 'Пароль должен содержать минимум 6 символов'})
