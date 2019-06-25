@@ -11,7 +11,7 @@ router.get('/settings', checkIsLogged, (req, res, next) => {
 
 function isUnique(toCheck, array) {
     array.forEach((item) => {
-        if(item === toCheck) {
+        if(item.name === toCheck) {
             return false;
         }
     });
@@ -21,6 +21,7 @@ function isUnique(toCheck, array) {
 router.post('/settings', checkIsLogged, (req, res, next) => {
     const {favGenre, favActors, countries, minRating} = req.body;
     const errors = [];
+    console.log(favGenre);
     if(favGenre.length === 0 && favActors.length === 0) {
         errors.push({msg: 'Вы ничего не указали!'});
     }
@@ -34,6 +35,7 @@ router.post('/settings', checkIsLogged, (req, res, next) => {
                         favGenre.forEach((item) => {
                             if(item !== '' && isUnique(item, user.favGenres)) {
                                 user.favGenres.push(item);
+
                             }
                         });
                     }
@@ -54,7 +56,7 @@ router.post('/settings', checkIsLogged, (req, res, next) => {
                     if(user.minRating === '') {
                         user.minRating = minRating;
                     }
-                    console.log(user);
+                    console.log(user.favGenres[0]);
                     res.render('settings', {
                         success_msg:"Ваши настройки успешно сохранены!",
                         displayFavGenre:  user.favGenres,

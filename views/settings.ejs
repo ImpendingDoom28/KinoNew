@@ -8,18 +8,16 @@
             <form method="post" action="/account/settings">
                 <% include partials/messages.ejs %>
                 <label for="favGenre">Список любимых жанров:</label>
-                <datalist id="favGenreDatalist"></datalist>
                     <ul id="favGenresList">
                         <li>
-                            <input
-                                    id="favGenre"
+                            <select
+                                    id="favGenreDatalist"
                                     name="favGenre"
-                                    list="favGenreDatalist"
-                                    placeholder="Начните вводить жанр..."
                                     class='input-line full-width'
                                     onfocus="getGenres()"
                                     onchange="addNewRowGenres()"
-                            />
+                                    >
+                            </select>
                         </li>
                     </ul>
                 <label for="favActors">Список любимых актёров:</label>

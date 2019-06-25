@@ -53,7 +53,7 @@
                 if(!isGetGenres) {
                     const genres = JSON.parse(this.responseText);
                     genres.genres.forEach((item) => {
-                        datalist.innerHTML += '<option id=\"' + item.id + '\">' + item.name + '</option>';
+                        datalist.innerHTML += '<option name=\"' + item.id+ '\" class="">' + item.name +'</option>';
                     });
                     isGetGenres = true;
                 }
