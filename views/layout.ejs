@@ -12,27 +12,42 @@
         }
     </style>
     <script>
-        var isGetGenres = false;
+        let isGetGenres = false;
+
         function hide(obj) {
             obj.style.display = "none";
         }
 
-        function addNewRow() {
+        function addNewRowGenres() {
             let li = document.createElement('li');
             let input = document.createElement('input');
             input.name = 'favGenre';
             input.className = 'input-line full-width';
             input.placeholder="Начните вводить жанр...";
             input.setAttribute('list', 'favGenreDatalist');
-            input.onchange = addNewRow;
+            input.onchange = addNewRowGenres;
             li.appendChild(input);
             let parent = document.getElementById('favGenresList');
+            parent.appendChild(li);
+        }
+        function addNewRowActors() {
+            let li = document.createElement('li');
+            let input = document.createElement('input');
+            input.name = 'favActors';
+            input.className = 'input-line full-width';
+            input.placeholder="Начните вводить актёра...";
+            input.setAttribute('list', 'favActorsDatalist');
+            input.onchange = addNewRowActors;
+            input.oninput = function(){searchActors(input.value);};
+            li.appendChild(input);
+            let parent = document.getElementById('favActorsList');
             parent.appendChild(li);
         }
 
         function getGenres() {
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'https://api.themoviedb.org/3/genre/movie/list?language=ru-RU&api_key=f1bb885a34819055db8514823f6050a4', true);
+            const query = 'https://api.themoviedb.org/3/genre/movie/list?language=ru-RU&api_key=f1bb885a34819055db8514823f6050a4';
+            xhr.open('GET', query, true);
             let datalist = document.getElementById('favGenreDatalist');
             xhr.onload = function () {
                 if(!isGetGenres) {
@@ -49,10 +64,25 @@
             xhr.send();
             console.log('Жанры получены');
         }
+
         function searchActors(name) {
+            let datalist = document.getElementById('favActorsDatalist');
+            datalist.innerHTML = '';
             const xhr = new XMLHttpRequest();
-            console.log(name);x``
-            xhr.open('GET', 'https://api.themoviedb.org/3/search/person?api_key=f1bb885a34819055db8514823f6050a4&language=ru-RU&page=1&include_adult=false&query=' + name, true)
+            const query = 'https://api.themoviedb.org/3/search/person?api_key=f1bb885a34819055db8514823f6050a4&language=ru-RU&page=1&include_adult=false&query=' + name;
+            xhr.open('GET', query, true);
+            xhr.onload = function () {
+                console.log(this.responseText);
+                const results = JSON.parse(this.responseText).results;
+                console.log(results);
+                results.forEach((item) => {
+                    datalist.innerHTML += '<option id=\"' + item.id + '\" value=\"' + item.name + '\" label=\"' + name + '\">';
+                });
+            };
+            xhr.onerror = function () {
+                console.log('Ошибка ' + this.status);
+            };
+            xhr.send();
         }
     </script>
     <title>KinoNew</title>

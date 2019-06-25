@@ -51,23 +51,16 @@ router.post('/register', (req, res) => {
                     // Hash Password
                     bcrypt.genSalt(10)
                         .then((salt) => {
-                            bcrypt.hash(newUser.password, salt)
-                                .then((hash) => {
-                                    //Set password to hashed password
-                                    newUser.password = hash;
-                                    //Save user
-                                    newUser.save()
-                                        .then(user => {
-                                            req.flash('success_msg', 'Вы успешно зарегистрировались и теперь можете авторизоваться');
-                                            res.redirect('/users/login');
-                                        })
-                                        .catch(err => {
-                                            flashError(req, res, err);
-                                        })
-                                })
-                                .catch( err => {
-                                    flashError(req, res, err);
-                                })
+                            return bcrypt.hash(newUser.password, salt);
+                        })
+                        .then((hash) => {
+                            //Set password to hashed password
+                            newUser.password = hash;
+                            //Save user
+                            return newUser.save();})
+                        .then(user => {
+                            req.flash('success_msg', 'Вы успешно зарегистрировались и теперь можете авторизоваться');
+                            res.redirect('/users/login');
                         })
                         .catch(err => {
                             flashError(req, res, err);
