@@ -39,10 +39,6 @@ body {
     margin-bottom: 50px;
     justify-content: center;
     align-items: center;
-    font-size: 40px;
-    font-size: 2.5rem;
-    letter-spacing: 0px;
-    letter-spacing: 0.05rem;
     padding-right: 40px;
     padding-left: 40px;
 }
@@ -61,6 +57,7 @@ h2.slider-title {
     opacity: 0.85;
     filter: alpha(opacity=85);
     padding-top: 40px;
+    margin-bottom: 50px;
 }
 
 .news-wrapper {
@@ -160,7 +157,6 @@ hr {
     padding: 15px;
     -moz-transition: all 0.4s ease-in-out 0s;
     -webkit-transition: all 0.4s ease-in-out 0s;
-    -ms-transition: all 0.4s ease-in-out 0s;
     transition: all 0.4s ease-in-out 0s;
 }
 .slide-cursor:hover .slide-layer_top,
@@ -202,7 +198,7 @@ hr {
 }
 .slide-cursor:hover .slide-layer_scale,
 .slide-cursor.active .slide-layer_scale {
-    border-radius: 0%;
+    border-radius: 0;
     -moz-transform: scale(1);
     -webkit-transform: scale(1);
     -ms-transform: scale(1);
