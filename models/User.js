@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 
+const SearchObject = {
+    id: Number,
+    name: String
+};
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -18,13 +22,13 @@ const UserSchema = new mongoose.Schema({
       default: Date.now
     },
     favGenres: {
-        type: [String]
+        type: [SearchObject]
     },
     favActors: {
-        type: [String]
+        type: [SearchObject]
     },
     countries: {
-        type: [String]
+        type: [SearchObject]
     },
     minRating: {
         type: Number
