@@ -7,6 +7,9 @@ html, body {
 
 .container {
     margin: 0;
+    padding-right: 0;
+    padding-left: 0;
+    max-width: none;
 }
 
 body {
@@ -25,25 +28,44 @@ body {
     height: 100%;
     float: right;
 }
+
+.content {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
 .input-fields {
-    margin-top: 25px;
+    background-color: #a73c7340;
+    color: black;
     border: 5px solid #000000;
     border-radius: 26px;
     padding: 15px;
-    width: 40%;
-    margin-left: 45%;
-    margin-right: auto;
+    width: 35%;
+    max-width: 400px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: auto;
 }
 
 .welcome {
-    margin-left: 30%;
+    width: 100%;
     font-weight: 200;
     margin-top: 20px;
-    text-align: center;
+    margin-bottom: 50px;
+
+    justify-content: center;
+    align-items: center;
     font-size: 40px;
     font-size: 2.5rem;
     letter-spacing: 0px;
     letter-spacing: 0.05rem;
+    padding-right: 40px;
+    padding-left: 40px;
+}
+h1.welcome-text {
+    text-align: center;
+
 }
 input {
     border: none;
