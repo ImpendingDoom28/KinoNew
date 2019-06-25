@@ -2,14 +2,16 @@
 <% include header.ejs %>
 <div class="container2">
     <div class='content'>
-        <div class='welcome'><h1 class="welcome-text">❤Добро пожаловать в настройки <%= typeof name != 'undefined' ? ', ' + user.name : '' %>
+        <div class='welcome'><h1 class="welcome-text">❤Добро пожаловать в
+                настройки <%= typeof name != 'undefined' ? ', ' + user.name : '' %>
                 !❤<br/>Здесь вы сможете настроить новинки по своим предпочтениям!📽🎞️</h1></div>
-        <div class='input-fields'>
-            <form method="post" action="/account/settings">
-                <label for="favGenre">Список любимых жанров:</label>
-                <datalist id="favGenreDatalist">
+        <div class="inputs">
+            <div class='input-field'>
+                <form method="post" action="/account/settings">
+                    <label for="favGenre">Список любимых жанров:</label>
+                    <datalist id="favGenreDatalist">
 
-                </datalist>
+                    </datalist>
                     <ul id="favGenresList">
                         <li>
                             <input
@@ -24,6 +26,67 @@
                             />
                         </li>
                     </ul>
+                    <label for="favActors">Список любимых актёров:</label>
+                    <ul id="favGenresList">
+                        <li>
+                            <input
+                                    id="favActors"
+                                    name="favActors"
+                                    list="favActors"
+                                    placeholder="Введите имя актёра"
+                                    class='input-line full-width'
+                                    value="<%= typeof favActors != 'undefined' ? favActors : '' %>"
+                            />
+                        </li>
+                    </ul>
+                    <label for="countries">Список стран производителей:</label>
+                    <ul id="favGenresList">
+                        <li>
+                            <input
+                                    id="countries"
+                                    name="countries"
+                                    list="countries"
+                                    placeholder="Введите страну"
+                                    class='input-line full-width'
+                                    value="<%= typeof countries != 'undefined' ? countries : '' %>"
+                            />
+                        </li>
+                    </ul>
+                    <label for="minRating">Минимальный рейтинг фильма/сериала(по 100 балльной шкале):</label>
+                    <input
+                            id="minRating"
+                            name="minRating"
+                            list="minRating"
+                            placeholder="Введите рейтинг"
+                            class='input-line full-width'
+                            value="<%= typeof minRating != 'undefined' ? minRating : '' %>"
+                    />
+                    <div class="button">
+                        <input type="submit" value="Сохранить" class="ghost-round full-width">
+                    </div>
+                </form>
+            </div>
+
+            <div class='input-field'>
+                <div class="title_form"><h1>Ваши жанры:</h1></div>
+                <label for="favGenre">Список любимых жанров:</label>
+                <datalist id="favGenreDatalist">
+
+                </datalist>
+                <ul id="favGenresList">
+                    <li>
+                        <input
+                                id="favGenre"
+                                name="favGenre"
+                                list="favGenreDatalist"
+                                placeholder="Начните вводить жанр..."
+                                class='input-line full-width'
+                                onload="getGenres()"
+                                onchange="addNewRow()"
+                                value="<%= typeof favGenre != 'undefined' ? favGenre : '' %>"
+                        />
+                    </li>
+                </ul>
                 <label for="favActors">Список любимых актёров:</label>
                 <ul id="favGenresList">
                     <li>
@@ -59,10 +122,12 @@
                         class='input-line full-width'
                         value="<%= typeof minRating != 'undefined' ? minRating : '' %>"
                 />
-                <div class="button">
-                    <input type="submit" value="Сохранить" class="ghost-round full-width">
-                </div>
-            </form>
+                <form method="post" action="/account/settings">
+                    <div class="button">
+                        <input type="submit" value="Сбросить настройки" class="ghost-round full-width">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
