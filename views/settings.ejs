@@ -19,7 +19,6 @@
                                     class='input-line full-width'
                                     onfocus="getGenres()"
                                     onchange="addNewRowGenres()"
-                                    value="<%= typeof favGenre != 'undefined' ? favGenre : '' %>"
                             />
                         </li>
                     </ul>
@@ -35,7 +34,6 @@
                                 oninput="searchActors(value)"
                                 onchange="addNewRowActors()"
                                 class='input-line full-width'
-                                value="<%= typeof favActors != 'undefined' ? favActors : '' %>"
                         />
                     </li>
                 </ul>
@@ -49,7 +47,6 @@
                                 list="countries"
                                 placeholder="Начните вводить страну..."
                                 class='input-line full-width'
-                                value="<%= typeof countries != 'undefined' ? countries : '' %>"
                         />
                     </li>
                 </ul>
@@ -60,7 +57,6 @@
                         list="minRating"
                         placeholder="Введите рейтинг"
                         class='input-line full-width'
-                        value="<%= typeof minRating != 'undefined' ? minRating : '' %>"
                 />
                 <div class="button">
                     <input type="submit" value="Сохранить" class="ghost-round full-width">
