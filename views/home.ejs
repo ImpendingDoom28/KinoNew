@@ -4,26 +4,57 @@
 
 <% include header.ejs %>
 <div class="container2">
-    <div class='welcome'>
-        <h1 class="welcome-text">Главная</h1>
-        <p class="lead mb-3">Добро пожаловать <%= typeof name != 'undefined' ? ', ' + user.name : '' %>!</p>
+    <div class="content">
+        <div class='welcome'>
+            <h1 class="welcome-text">❤Добро пожаловать <%= typeof name != 'undefined' ? ', ' + user.name : '' %>!❤</h1>
+        </div>
     </div>
+    <!-------Слайдер новинок------->
+    <div class="wrapper shadow-effect">
+        <div class="news-wrapper">
+            <h2 class="slider-title">Новинки</h2>
+            <hr/>
+            <br/>
+            <div class="slider">
+                <div class="slide"><img
+                            src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/lQBF6jzW2gsk3Kr7dMdqrkGaukV.jpg">
+                </div>
+                <div class="slide"><img
+                            src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/927lqua6AHPW4mUflU26yV3APKZ.jpg"></div>
+                <div class="slide"><img
+                            src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/cl7lFMru1YQs0Yf9vpTFPACoHhP.jpg"></div>
+                <div class="slide"><img
+                            src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/rgZOhYFoTLjxf2s1RRHAXfnreqi.jpg"></div>
+                <div class="slide"><img
+                            src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/sPwMpQCk8Mhd9PbCfXPEdK4ZzkA.jpg"></div>
+                <div class="slide"><img
+                            src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/t03rHGlU5jLBGrsjPZyut6LEv53.jpg"></div>
+            </div>
+        </div>
+        <!------------------------->
 
-<!--Слайдер новинок-->
-    <div class="news-wrapper">
-        <div class="text-news">
-            <h2>Новинки</h2>
+        <!-------Слайдер рекомендаций------->
+        <div class="news-wrapper">
+            <h2 class="slider-title">Рекомендации</h2>
+            <hr/>
+            <br/>
+            <div class="slider">
+                <div class="slide"><img
+                            src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/lQBF6jzW2gsk3Kr7dMdqrkGaukV.jpg"></div>
+                <div class="slide"><img
+                            src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/927lqua6AHPW4mUflU26yV3APKZ.jpg"></div>
+                <div class="slide"><img
+                            src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/cl7lFMru1YQs0Yf9vpTFPACoHhP.jpg"></div>
+                <div class="slide"><img
+                            src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/rgZOhYFoTLjxf2s1RRHAXfnreqi.jpg"></div>
+                <div class="slide"><img
+                            src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/sPwMpQCk8Mhd9PbCfXPEdK4ZzkA.jpg"></div>
+                <div class="slide"><img
+                            src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/t03rHGlU5jLBGrsjPZyut6LEv53.jpg"></div>
+            </div>
         </div>
-        <div class="slider">
-            <div class="slide"><img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/lQBF6jzW2gsk3Kr7dMdqrkGaukV.jpg"></div>
-            <div class="slide"><img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/927lqua6AHPW4mUflU26yV3APKZ.jpg"></div>
-            <div class="slide"><img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/cl7lFMru1YQs0Yf9vpTFPACoHhP.jpg"></div>
-            <div class="slide"><img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/rgZOhYFoTLjxf2s1RRHAXfnreqi.jpg"></div>
-            <div class="slide"><img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/sPwMpQCk8Mhd9PbCfXPEdK4ZzkA.jpg"></div>
-            <div class="slide"><img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/t03rHGlU5jLBGrsjPZyut6LEv53.jpg"></div>
-        </div>
+        <!---------------------------------->
     </div>
-    <!---->
 </div>
 
 <script src="http://yastatic.net/jquery/2.1.3/jquery.min.js"></script>

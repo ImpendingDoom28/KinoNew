@@ -14,13 +14,29 @@ body {
     padding-left: 0;
     max-width: none;
 }
+.container2 {
+    margin-top: 5%;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    flex-direction: column;
+}
+
+.content {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
 
 .welcome {
     width: 100%;
     font-weight: 200;
     margin-top: 20px;
     margin-bottom: 50px;
-
     justify-content: center;
     align-items: center;
     font-size: 40px;
@@ -30,35 +46,81 @@ body {
     padding-right: 40px;
     padding-left: 40px;
 }
-h1.welcome-text {
-    text-align: center;
-
+h2.slider-title {
+    text-align: left;
+    margin-bottom: 15px;
 }
-
-.container2 {
-    height: 100%;
-    width: 100%;
+.wrapper {
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    background: -webkit-linear-gradient(#ffffff, #ef8ee7);
+    background: linear-gradient(#ffffff, #ef8ee7);
+    opacity: 0.85;
+    filter: alpha(opacity=85);
+    padding-top: 40px;
 }
 
 .news-wrapper {
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-.text-news {
-    display: block;
+    width: 95%;
+    margin-bottom: 80px;
+    padding: 5px 30px;
 }
 .slider {
-    width: 80%;
     box-sizing: border-box;
-    height: 300px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: auto;
 }
 .slide {
     width: 100%;
     outline: none;
-    height: 300px;
+    height: auto;
+}
+
+.shadow-effect
+{
+    position:relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.shadow-effect:before, .shadow-effect:after
+{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:10px;
+    bottom:10px;
+    left:0;
+    right:0;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+}
+.shadow-effect:after
+{
+    right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+    -moz-transform:skew(8deg) rotate(3deg);
+    -ms-transform:skew(8deg) rotate(3deg);
+    -o-transform:skew(8deg) rotate(3deg);
+    transform:skew(8deg) rotate(3deg);
 }
 img {
     width: 200px;
-    height: 300px;
+    height: auto;
+}
+
+hr {
+    margin: 20px 0;
+    padding: 0;
+    border: none;
+    border-top: 1px solid #333;
 }
