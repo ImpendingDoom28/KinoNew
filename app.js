@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
+const open =  require('open');
 
 const app = express();
 
@@ -72,3 +73,7 @@ app.use((req, res, next) => {
     console.log('%s %s %s', req.method, req.url, req.path);
     next();
 });
+
+(async () => {
+    await open('http://localhost:5000/users/login');
+})();
