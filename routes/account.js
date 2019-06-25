@@ -11,22 +11,61 @@ router.get('/settings', checkIsLogged, (req, res, next) => {
 
 function isUnique(toCheck, array) {
     array.forEach((item) => {
-        if(item.name === toCheck) {
+        if(item === toCheck) {
             return false;
         }
     });
     return true;
 }
 
+function isGenre(arrayToCheck) {
+    console.log("array: " + '\'' + arrayToCheck +'\'');
+    if(arrayToCheck != '') {
+        var request = require("request");
+        var options = {
+            method: 'GET',
+            url: 'https://api.themoviedb.org/3/genre/movie/list',
+            qs:
+                {
+                    language: 'ru-Ru',
+                    api_key: 'f1bb885a34819055db8514823f6050a4'
+                },
+            body: '{}'
+        };
+        request(options, function (error, response, body) {
+            if (error) throw new Error(error);
+            const genres = JSON.parse(body);
+            arrayToCheck.forEach((item) => {
+                let help = false;
+                genres.genres.forEach(((genre) => {
+                    if(item === genre.name) {
+                        help = true;
+                    }
+                }));
+                if(!help) {
+                    return help;
+                }
+            });
+        });
+        return true;
+    } else {
+        return true;
+    }
+
+}
+
 router.post('/settings', checkIsLogged, (req, res, next) => {
     const {favGenre, favActors, countries, minRating} = req.body;
     const errors = [];
-    console.log(favGenre);
     if(favGenre.length === 0 && favActors.length === 0) {
         errors.push({msg: 'Вы ничего не указали!'});
+    } else {
+        if(!isGenre(favGenre)) {
+            errors.push({msg: 'Вы указали не допустимый жанр!'})
+        }
     }
     if(errors.length > 0) {
-        res.render('settings', {errors, favGenre, favActors, countries, minRating});
+        res.render('settings', {errors, minRating});
     } else {
         User.findOne({email: req.user.email})
             .then((user) => {
@@ -35,7 +74,6 @@ router.post('/settings', checkIsLogged, (req, res, next) => {
                         favGenre.forEach((item) => {
                             if(item !== '' && isUnique(item, user.favGenres)) {
                                 user.favGenres.push(item);
-
                             }
                         });
                     }
@@ -56,7 +94,7 @@ router.post('/settings', checkIsLogged, (req, res, next) => {
                     if(user.minRating === '') {
                         user.minRating = minRating;
                     }
-                    console.log(user.favGenres[0]);
+                    console.log(user);
                     res.render('settings', {
                         success_msg:"Ваши настройки успешно сохранены!",
                         displayFavGenre:  user.favGenres,

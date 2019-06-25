@@ -8,16 +8,19 @@
             <form method="post" action="/account/settings">
                 <% include partials/messages.ejs %>
                 <label for="favGenre">Список любимых жанров:</label>
+                <datalist id="favGenreDatalist"></datalist>
                     <ul id="favGenresList">
                         <li>
-                            <select
-                                    id="favGenreDatalist"
+                            <input
+                                    id="favGenre"
                                     name="favGenre"
+                                    list="favGenreDatalist"
+                                    placeholder="Начните вводить жанр..."
                                     class='input-line full-width'
                                     onfocus="getGenres()"
                                     onchange="addNewRowGenres()"
-                                    >
-                            </select>
+                                    value="<%= typeof favGenre != 'undefined' ? favGenre : '' %>"
+                            />
                         </li>
                     </ul>
                 <label for="favActors">Список любимых актёров:</label>
@@ -32,6 +35,7 @@
                                 oninput="searchActors(value)"
                                 onchange="addNewRowActors()"
                                 class='input-line full-width'
+                                value="<%= typeof favActors != 'undefined' ? favActors : '' %>"
                         />
                     </li>
                 </ul>
@@ -45,6 +49,7 @@
                                 list="countries"
                                 placeholder="Начните вводить страну..."
                                 class='input-line full-width'
+                                value="<%= typeof countries != 'undefined' ? countries : '' %>"
                         />
                     </li>
                 </ul>
@@ -55,6 +60,7 @@
                         list="minRating"
                         placeholder="Введите рейтинг"
                         class='input-line full-width'
+                        value="<%= typeof minRating != 'undefined' ? minRating : '' %>"
                 />
                 <div class="button">
                     <input type="submit" value="Сохранить" class="ghost-round full-width">
