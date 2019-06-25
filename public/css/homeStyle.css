@@ -176,6 +176,7 @@ hr {
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    font-weight: bold;
 }
 .slide-cursor .slide-text_mobile {
     font-size: 15px;
