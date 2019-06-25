@@ -20,7 +20,7 @@ function isUnique(toCheck, array) {
 
 function isGenre(arrayToCheck) {
     console.log("array: " + '\'' + arrayToCheck +'\'');
-    if(arrayToCheck != '') {
+    if(arrayToCheck !== '') {
         var request = require("request");
         var options = {
             method: 'GET',
