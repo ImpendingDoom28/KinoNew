@@ -19,7 +19,7 @@
                                     placeholder="Начните вводить жанр..."
                                     class='input-line full-width'
                                     onfocus="getGenres()"
-                                    onchange="addNewRow()"
+                                    onchange="addNewRowGenres()"
                                     value="<%= typeof favGenre != 'undefined' ? favGenre : '' %>"
                             />
                         </li>
@@ -31,9 +31,10 @@
                         <input
                                 id="favActors"
                                 name="favActors"
-                                list="favActors"
+                                list="favActorsDatalist"
                                 placeholder="Начните вводить имя актёра..."
                                 oninput="searchActors(value)"
+                                onchange="addNewRowActors()"
                                 class='input-line full-width'
                                 value="<%= typeof favActors != 'undefined' ? favActors : '' %>"
                         />
