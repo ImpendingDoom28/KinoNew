@@ -57,10 +57,10 @@ router.post('/settings', checkIsLogged, (req, res, next) => {
                     console.log(user);
                     res.render('settings', {
                         success_msg:"Ваши настройки успешно сохранены!",
-                        displayFavGenre: favGenre,
-                        displayFavActors:favActors,
-                        displayCountries: countries,
-                        displayMinRating: minRating
+                        displayFavGenre:  user.favGenres,
+                        displayFavActors: user.favActors,
+                        displayCountries: user.countries,
+                        displayMinRating: user.minRating
                     });
                 } else {
                     errors.push({msg: 'Произошла ошибка в базе данных сервера, пожалуйста, обратитесь в тех. поддержку'});
@@ -72,6 +72,49 @@ router.post('/settings', checkIsLogged, (req, res, next) => {
                 res.render('settings', {errors});
             });
     }
+});
+
+router.post('/settings/reset', (req, res, next) => {
+    const user = req.user;
+    const errors = [];
+    console.log('Сбрасываем настройки...');
+    User.findOne({email: user.email})
+        .then((user) => {
+            if(user) {
+                console.log('Нашли пользователя');
+                user.favGenres = [];
+                user.favActors = [];
+                user.countries = [];
+                user.minRating = '';
+                res.render('settings', {
+                    success_msg : 'Ваши настройки успешно сброшены!',
+                    displayFavGenre:  user.favGenres,
+                    displayFavActors: user.favActors,
+                    displayCountries: user.countries,
+                    displayMinRating: user.minRating
+                });
+                console.log(user);
+            } else {
+                errors.push({msg: 'Произошла ошибка в базе данных сервера, пожалуйста, обратитесь в тех. поддержку'});
+                res.render('settings', {
+                    errors,
+                    displayFavGenre:  user.favGenres,
+                    displayFavActors: user.favActors,
+                    displayCountries: user.countries,
+                    displayMinRating: user.minRating
+                });
+            }
+        })
+        .catch((err) => {
+            errors.push(err);
+            res.render('settings', {
+                errors,
+                displayFavGenre:  user.favGenres,
+                displayFavActors: user.favActors,
+                displayCountries: user.countries,
+                displayMinRating: user.minRating
+            });
+        });
 });
 
 module.exports = router;
