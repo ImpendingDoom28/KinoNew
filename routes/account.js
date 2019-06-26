@@ -8,6 +8,9 @@ router.get('/settings', checkIsLogged, (req, res, next) => {
     res.render('settings', {user: req.body.user});
 });
 
+const options = {qs: {language: 'ru-Ru', api_key: 'f1bb885a34819055db8514823f6050a4'}};
+const urlGenres = 'https://api.themoviedb.org/3/genre/movie/list';
+
 function isUnique(toCheck, array) {
     array.forEach((item) => {
         if(item === toCheck) {
@@ -19,14 +22,7 @@ function isUnique(toCheck, array) {
 
 function isGenre(arrayToCheck) {
     if(arrayToCheck !== '') {
-        const options = {
-            qs:
-                {
-                    language: 'ru-Ru',
-                    api_key: 'f1bb885a34819055db8514823f6050a4'
-                }
-        };
-        const req = request('GET', 'https://api.themoviedb.org/3/genre/movie/list', options);
+        const req = request('GET', urlGenres, options);
         const genres = JSON.parse(req.getBody());
         arrayToCheck.forEach((item) => {
             let help = false;
@@ -36,7 +32,7 @@ function isGenre(arrayToCheck) {
                 }
             });
             if(!help) {
-                return help;
+                return false;
             }
         });
         return true;
@@ -45,23 +41,14 @@ function isGenre(arrayToCheck) {
     }
 }
 function getGenre(genre) {
-    const options = {
-        qs:
-            {
-                language: 'ru-Ru',
-                api_key: 'f1bb885a34819055db8514823f6050a4'
-            }
-    };
-    const id = [];
-    const req = request('GET', 'https://api.themoviedb.org/3/genre/movie/list', options);
+    const req = request('GET', urlGenres, options);
     const genres = JSON.parse(req.getBody());
     genres.genres.forEach((actualGenre) => {
         if (genre === actualGenre.name) {
             console.log('id from request: ' + actualGenre.id);
-            id.push(actualGenre.id);
+            return actualGenre.id;
         }
     });
-    return id;
 }
 
 router.post('/settings', checkIsLogged, (req, res, next) => {
@@ -160,10 +147,7 @@ router.post('/settings/reset', (req, res, next) => {
                 errors.push({msg: 'Произошла ошибка в базе данных сервера, пожалуйста, обратитесь в тех. поддержку'});
                 res.render('settings', {
                     errors,
-                    displayFavGenre:  user.favGenres,
-                    displayFavActors: user.favActors,
-                    displayCountries: user.countries,
-                    displayMinRating: user.minRating
+                    user: user
                 });
             }
         })
@@ -171,10 +155,7 @@ router.post('/settings/reset', (req, res, next) => {
             errors.push(err);
             res.render('settings', {
                 errors,
-                displayFavGenre:  user.favGenres,
-                displayFavActors: user.favActors,
-                displayCountries: user.countries,
-                displayMinRating: user.minRating
+                user: user
             });
         });
 });
