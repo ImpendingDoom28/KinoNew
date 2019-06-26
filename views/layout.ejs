@@ -84,10 +84,33 @@
             };
             xhr.send();
         }
+
+        function findMovies() {
+            const slider = document.getElementById('recommendations');
+            const xhr = new XMLHttpRequest();
+            const query = 'https://api.themoviedb.org/3/discover/movie?api_key=f1bb885a34819055db8514823f6050a4&language=ru-RU&region=RU&sort_by=release_date.asc&include_adult=false&include_video=false&page=1&primary_release_year=2019';
+            xhr.open('GET', query, true);
+            xhr.onload = function () {
+                const results = JSON.parse(this.responseText).results;
+                results.forEach((item) => {
+                    slider.innerHTML += '<div class="slide"><div class="slide-cursor">';
+                    slider.innerHTML += '<a href="https://www.themoviedb.org/movie/"' + item.id + '&language=ru-RU>';
+                    slider.innerHTML += '<img src=https://image.tmdb.org/t/p/w600_and_h900_bestv2' + item.poster_path + '>';
+                    slider.innerHTML += '<div class="slide-layer_top slide-layer_scale"><div class="slide-text">';
+                    slider.innerHTML += item.title;
+                    slider.innerHTML += '</div></div></a></div></div>';
+                });
+            }
+            console.log(slider.innerHTML);
+            xhr.onerror = function () {
+                console.log('Ошибка ' + this.status);
+            };
+            xhr.send()
+        }
     </script>
     <title>KinoNew</title>
 </head>
-<body>
+<body onload="findMovies()">
 <div class="container">
     <%- body %>
 </div>

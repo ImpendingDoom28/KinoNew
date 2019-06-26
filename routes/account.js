@@ -10,6 +10,7 @@ router.get('/settings', checkIsLogged, (req, res, next) => {
 
 const options = {qs: {language: 'ru-Ru', api_key: 'f1bb885a34819055db8514823f6050a4'}};
 const urlGenres = 'https://api.themoviedb.org/3/genre/movie/list';
+const req = request('GET', urlGenres, options);
 
 function isUnique(toCheck, array) {
     array.forEach((item) => {
@@ -22,7 +23,6 @@ function isUnique(toCheck, array) {
 
 function isGenre(arrayToCheck) {
     if(arrayToCheck !== '') {
-        const req = request('GET', urlGenres, options);
         const genres = JSON.parse(req.getBody());
         arrayToCheck.forEach((item) => {
             let help = false;
@@ -40,15 +40,16 @@ function isGenre(arrayToCheck) {
         return true;
     }
 }
-function getGenre(genre) {
-    const req = request('GET', urlGenres, options);
+function getGenreId(genre) {
+    const id = [];
     const genres = JSON.parse(req.getBody());
     genres.genres.forEach((actualGenre) => {
         if (genre === actualGenre.name) {
             console.log('id from request: ' + actualGenre.id);
-            return actualGenre.id;
+            id.push(actualGenre.id);
         }
     });
+    return id;
 }
 
 router.post('/settings', checkIsLogged, (req, res, next) => {
@@ -69,6 +70,9 @@ router.post('/settings', checkIsLogged, (req, res, next) => {
             errors.push({msg: 'Минимальный рейтинг должен быть в пределах от 1 до 10!'});
         }
     }
+    if(countries.length > 0) {
+        errors.push({msg: 'Извините, список любимых стран в разработке'});
+    }
     if(errors.length > 0) {
         res.render('settings', {errors, minRating});
     } else {
@@ -78,12 +82,13 @@ router.post('/settings', checkIsLogged, (req, res, next) => {
                     if(favGenre.length > 0) {
                         favGenre.forEach((item) => {
                             if(item !== '' && isUnique(item, user.favGenres)) {
-                                const id = getGenre(item);
+                                const id = getGenreId(item);
                                 user.favGenres.push(item);
                                 user.favGenresIDs.push(id[0]);
                             }
                         });
                     }
+
                     if(favActors.length > 0) {
                         favActors.forEach((item) => {
                             if(item !== '' && isUnique(item, user.favActors)) {
@@ -95,6 +100,7 @@ router.post('/settings', checkIsLogged, (req, res, next) => {
                         countries.forEach((item) => {
                             if(item !== '' && isUnique(item, user.countries)) {
                                 user.countries.push(item);
+                                
                             }
                         });
                     }
@@ -104,10 +110,7 @@ router.post('/settings', checkIsLogged, (req, res, next) => {
                     console.log(user);
                     res.render('settings', {
                         success_msg:"Ваши настройки успешно сохранены!",
-                        displayFavGenre:  user.favGenres,
-                        displayFavActors: user.favActors,
-                        displayCountries: user.countries,
-                        displayMinRating: user.minRating
+                        user: user
                     });
                 } else {
                     errors.push({msg: 'Произошла ошибка в базе данных сервера, пожалуйста, обратитесь в тех. поддержку'});
@@ -137,10 +140,7 @@ router.post('/settings/reset', (req, res, next) => {
                 user.minRating = '';
                 res.render('settings', {
                     success_msg : 'Ваши настройки успешно сброшены!',
-                    displayFavGenre:  user.favGenres,
-                    displayFavActors: user.favActors,
-                    displayCountries: user.countries,
-                    displayMinRating: user.minRating
+                    user: user
                 });
                 console.log(user);
             } else {

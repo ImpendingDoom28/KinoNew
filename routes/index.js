@@ -29,12 +29,9 @@ router.get('/home', checkIsLogged, (req, res) => {
 
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
-
-        // console.log(body.page);
         let elem = JSON.parse(body);
         let results = elem.results;
         let movies = [];
-        console.log(results);
         for (let i = 0; i < results.length; i++) {
             movies[i] = {
                 id: results[i].id,
@@ -46,13 +43,8 @@ router.get('/home', checkIsLogged, (req, res) => {
                 overview: results[i].overview
             }
         }
-        movies.forEach(function(elem) {
-            console.log(elem);
-        });
-    });
 
-    res.render('home', {
-        user: req.user
+        res.render('home', movies);
     });
 
 });
