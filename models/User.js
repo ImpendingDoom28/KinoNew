@@ -20,13 +20,13 @@ const UserSchema = new mongoose.Schema({
         type: [String]
     },
     favGenresIDs: {
-        type: [Number]
+        type: []
     },
     favActors: {
         type: [String]
     },
     favActorsIDs: {
-        type: [Number]
+        type: []
     },
     countries: {
         type: [String]
