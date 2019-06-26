@@ -51,7 +51,7 @@
                             />
                         </li>
                     </ul>
-                    <label for="minRating">Минимальный рейтинг фильма/сериала(по 100 балльной шкале):</label>
+                    <label for="minRating">Минимальный рейтинг фильма/сериала(по 10 балльной шкале):</label>
                     <input
                             id="minRating"
                             name="minRating"
@@ -67,64 +67,35 @@
             </div>
 
             <div class='input-field'>
-                <div class="title_form"><h1>Ваши жанры:</h1></div>
+                <div class="title_form"><h1>Ваши настройки:</h1></div>
                 <label for="favGenre">Список любимых жанров:</label>
                 <datalist id="favGenreDatalist">
 
                 </datalist>
                 <ul id="favGenresList">
                     <li>
-                        <input
-                                id="favGenre"
-                                name="favGenre"
-                                list="favGenreDatalist"
-                                placeholder="Начните вводить жанр..."
-                                class='input-line full-width'
-                                onload="getGenres()"
-                                onchange="addNewRow()"
-                                value="<%= typeof favGenre != 'undefined' ? favGenre : '' %>"
-                        />
+                        <div class='input-line full-width' style="text-align: left">приключения</div>
                     </li>
                 </ul>
                 <label for="favActors">Список любимых актёров:</label>
                 <datalist id="favActorsDatalist"></datalist>
                 <ul id="favActorsList">
                     <li>
-                        <input
-                                id="favActors"
-                                name="favActors"
-                                list="favActorsDatalist"
-                                placeholder="Начните вводить имя актёра..."
-                                oninput="searchActors(value)"
-                                onchange="addNewRowActors()"
-                                class='input-line full-width'
-                                value="<%= typeof favActors != 'undefined' ? favActors : '' %>"
-                        />
+                        <div class='input-line full-width' style="text-align: left">actor</div>
+                    </li>
+                    <li>
+                        <div class='input-line full-width' style="text-align: left">actor</div>
                     </li>
                 </ul>
                 <label for="countries">Список стран производителей:</label>
                 <datalist id="countriesDatalist"></datalist>
                 <ul id="countriesList">
                     <li>
-                        <input
-                                id="countries"
-                                name="countries"
-                                list="countries"
-                                placeholder="Начните вводить страну..."
-                                class='input-line full-width'
-                                value="<%= typeof countries != 'undefined' ? countries : '' %>"
-                        />
+                        <div class='input-line full-width' style="text-align: left">Russia</div>
                     </li>
                 </ul>
                 <label for="minRating">Минимальный рейтинг фильма/сериала(по 10 балльной шкале):</label>
-                <input
-                        id="minRating"
-                        name="minRating"
-                        list="minRating"
-                        placeholder="Введите рейтинг"
-                        class='input-line full-width'
-                        value="<%= typeof minRating != 'undefined' ? minRating : '' %>"
-                />
+                <div class='input-line full-width' style="text-align: left">10</div>
                 <form method="post" action="/account/settings">
                     <div class="button">
                         <input type="submit" value="Сбросить настройки" class="ghost-round full-width">
