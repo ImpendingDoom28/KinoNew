@@ -24,8 +24,9 @@
     "passport-google-oauth": "^2.0.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
-    "tmdbv3": "^0.1.2",
-    "request": "latest"
+    "request": "latest",
+    "sync-request": "^6.1.0",
+    "tmdbv3": "^0.1.2"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
