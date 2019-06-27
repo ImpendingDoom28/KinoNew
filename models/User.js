@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema({
         type: []
     },
     minRating: {
-        type: Number
+        type: "number"
     }
 });
 
