@@ -83,7 +83,7 @@ router.post('/login', (req, res, next) => {
 //Logout Handle
 router.get('/logout', (req, res) => {
     req.logout();
-    req.flash('success_msg', 'Вы вышли со своего аккаунта');
+    req.flash('success_msg', 'Вы вышли из своего аккаунта');
     res.redirect('/users/login');
 });
 

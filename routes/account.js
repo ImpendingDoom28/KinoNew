@@ -20,7 +20,6 @@ function isUnique(toCheck, array) {
     });
     return true;
 }
-
 function isGenre(arrayToCheck) {
     if(arrayToCheck !== '' || arrayToCheck.length > 0) {
         let bigIsGenre = true;
@@ -59,8 +58,8 @@ function getGenreId(genre) {
 
 router.post('/settings', checkIsLogged, (req, res, next) => {
     const {favGenres, favActors, minRating} = req.body;
+    console.log(typeof favGenres + ' ' + typeof favActors);
     const errors = [];
-    console.log(favGenres);
     if(favGenres.length === 0 && favActors.length === 0) {
         errors.push({msg: 'Вы не указали любимых актёров или любимые жанры!'});
     } else {

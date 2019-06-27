@@ -13,6 +13,7 @@
     </style>
     <script>
         let isGetGenres = false;
+        let isGetMovies = false;
 
         function hide(obj) {
             obj.style.display = "none";
@@ -86,26 +87,72 @@
         }
 
         function findMovies() {
-            const slider = document.getElementById('recommendations');
+            const slider = document.getElementById('newMovies');
+            //TODO Вероника, если что, сюда вставляй
+            let HTMLContent = '';
             const xhr = new XMLHttpRequest();
             const query = 'https://api.themoviedb.org/3/discover/movie?api_key=f1bb885a34819055db8514823f6050a4&language=ru-RU&region=RU&sort_by=release_date.asc&include_adult=false&include_video=false&page=1&primary_release_year=2019';
             xhr.open('GET', query, true);
             xhr.onload = function () {
-                const results = JSON.parse(this.responseText).results;
-                results.forEach((item) => {
-                    slider.innerHTML += '<div class="slide"><div class="slide-cursor">';
-                    slider.innerHTML += '<a href="https://www.themoviedb.org/movie/"' + item.id + '"&language=ru-RU">';
-                    slider.innerHTML += '<img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2' + item.poster_path + '">';
-                    slider.innerHTML += '<div class="slide-layer_top slide-layer_scale"><div class="slide-text">';
-                    slider.innerHTML += item.title;
-                    slider.innerHTML += '</div></div></a></div></div>';
-                });
+                if(!isGetMovies) {
+                    const results = JSON.parse(this.responseText).results;
+                    results.forEach((item) => {
+                        HTMLContent += '<div class="slide"><div class="slide-cursor"><a href="https://www.themoviedb.org/movie/' + item.id + '?language=ru-RU"><img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2' + item.poster_path + '" alt="' + item.title + '"><div class="slide-layer_top slide-layer_scale"><div class="slide-text">' + item.title + '</div></div></a></div></div>';
+                    });
+                    HTMLContent += '</div></div>';
+                    console.table(HTMLContent);
+                    console.log(HTMLContent);
+                    slider.innerHTML = HTMLContent;
+                    isGetMovies = true;
+                }
             };
-            console.log(slider.innerHTML);
             xhr.onerror = function () {
                 console.log('Ошибка ' + this.status);
             };
             xhr.send();
+        }
+
+        function findMoviesByRecommendations(genres, genresIDs) {
+            const slider = document.getElementById('recommendationsByGenre');
+            const xhr = new XMLHttpRequest();
+            let query = 'https://api.themoviedb.org/3/discover/movie?api_key=f1bb885a34819055db8514823f6050a4&language=ru-RU&region=RU&sort_by=primary_release_date.asc&include_adult=false&include_video=false&page=' + genresIDs.length +
+                '&primary_release_year=2019&with_genres=';
+            genresIDs.forEach((genreID) => {
+                query.concat(genreID + '|');
+            });
+            xhr.open('GET', query, true);
+            xhr.onreadystatechange = function () {
+                const results = JSON.parse(this.responseText).results;
+                console.log('Нашли мувисы по жанрам успешно!');
+                results.forEach((movie) => {
+                    genresIDs.forEach((genreID, index) => {
+                        if (withGenre(movie, genreID)) {
+                            slider.innerHTML += '<h1 class="slider-title">' + genres[index].toUpperCase() + '</h1>';
+                            slider.innerHTML += '<div class="slider">';
+                            slider.innerHTML += '<div class="slide-cursor">';
+                            slider.innerHTML += '<a href="https://www.themoviedb.org/movie' + movie.id + '?language=ru-RU>';
+                            slider.innerHTML += '<img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2' + movie.poster_path + '" alt="">';
+                            slider.innerHTML += '<div class="slide-layer_top slide-layer_scale">';
+                            slider.innerHTML += '<div class="slide-text">' + movie.title + '</div>';
+                            slider.innerHTML += '</div></a></div></div>'
+                        }
+                    })
+                });
+            }
+            xhr.onerror = function () {
+                console.log('Ошибка: ' + this.status);
+            }
+            xhr.send();
+        }
+
+        function withGenre(movie, genreID) {
+            let help = false;
+            movie.genre_ids.forEach((id) => {
+                if (id === genreID) {
+                    help = true;
+                }
+            });
+            return help;
         }
     </script>
     <title>KinoNew</title>

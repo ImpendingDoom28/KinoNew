@@ -15,7 +15,7 @@ module.exports = function(passport) {
                 email: email
             }).then(user => {
                     if (!user) {
-                        return done(null, false, { message: 'Пользователь с почтой данной почтой не зарегистрирован!'});
+                        return done(null, false, { message: 'Пользователь с данной почтой не зарегистрирован!'});
                     }
                     //Match password
                     bcrypt.compare(password, user.password, (err, isMatch) => {
