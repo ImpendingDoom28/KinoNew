@@ -5,7 +5,7 @@ const request = require("sync-request");
 const User = require('../models/User');
 
 router.get('/settings', checkIsLogged, (req, res, next) => {
-    res.render('settings', {user: req.body.user});
+    res.render('settings', {user: req.user});
 });
 
 const options = {qs: {language: 'ru-Ru', api_key: 'f1bb885a34819055db8514823f6050a4'}};
@@ -53,7 +53,7 @@ function getGenreId(genre) {
 }
 
 router.post('/settings', checkIsLogged, (req, res, next) => {
-    const {favGenre, favActors, countries, minRating} = req.body;
+    const {favGenre, favActors, minRating} = req.body;
     const errors = [];
     console.log(favGenre);
     if(favGenre.length === 0 && favActors.length === 0) {
@@ -70,9 +70,6 @@ router.post('/settings', checkIsLogged, (req, res, next) => {
             errors.push({msg: 'Минимальный рейтинг должен быть в пределах от 1 до 10!'});
         }
     }
-    if(countries.length > 0) {
-        errors.push({msg: 'Извините, список любимых стран в разработке'});
-    }
     if(errors.length > 0) {
         res.render('settings', {errors, minRating});
     } else {
@@ -88,19 +85,10 @@ router.post('/settings', checkIsLogged, (req, res, next) => {
                             }
                         });
                     }
-
                     if(favActors.length > 0) {
                         favActors.forEach((item) => {
                             if(item !== '' && isUnique(item, user.favActors)) {
                                 user.favActors.push(item);
-                            }
-                        });
-                    }
-                    if(countries.length > 0) {
-                        countries.forEach((item) => {
-                            if(item !== '' && isUnique(item, user.countries)) {
-                                user.countries.push(item);
-                                
                             }
                         });
                     }

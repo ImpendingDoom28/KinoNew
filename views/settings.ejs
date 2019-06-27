@@ -25,29 +25,19 @@
                             />
                         </li>
                     </ul>
+                <datalist id="favActorsDatalist"></datalist>
                     <label for="favActors">Список любимых актёров:</label>
-                    <ul id="favGenresList">
+                    <ul id="favActorsList">
                         <li>
                             <input
                                     id="favActors"
                                     name="favActors"
-                                    list="favActors"
-                                    placeholder="Введите имя актёра"
+                                    list="favActorsDatalist"
+                                    placeholder="Начните вводить актёра..."
                                     class='input-line full-width'
+                                    oninput="searchActors(value)"
+                                    onchange="addNewRowActors()"
                                     value="<%= typeof favActors != 'undefined' ? favActors : '' %>"
-                            />
-                        </li>
-                    </ul>
-                    <label for="countries">Список стран производителей:</label>
-                    <ul id="favGenresList">
-                        <li>
-                            <input
-                                    id="countries"
-                                    name="countries"
-                                    list="countries"
-                                    placeholder="Введите страну"
-                                    class='input-line full-width'
-                                    value="<%= typeof countries != 'undefined' ? countries : '' %>"
                             />
                         </li>
                     </ul>
@@ -68,35 +58,53 @@
 
             <div class='input-field'>
                 <div class="title_form"><h1>Ваши настройки:</h1></div>
-                <label for="favGenre">Список любимых жанров:</label>
-                <datalist id="favGenreDatalist">
-
-                </datalist>
-                <ul id="favGenresList">
-                    <li>
-                        <div class='input-line full-width' style="text-align: left">приключения</div>
-                    </li>
+                <label>Любимые жанры:</label>
+                <ul>
+                    <% if(user.favGenres !== []) { %>
+                        <% user.favGenres.forEach((genre) => { %>
+                            <li>
+                                <div class='input-line full-width' style="text-align: left">
+                                    <%= genre %>
+                                </div>
+                            </li>
+                        <% }); %>
+                    <% } else { %>
+                        <li>
+                            <div class='input-line full-width' style="text-align: left">
+                                Не указаны
+                            </div>
+                        </li>
+                    <% } %>
                 </ul>
-                <label for="favActors">Список любимых актёров:</label>
-                <datalist id="favActorsDatalist"></datalist>
-                <ul id="favActorsList">
-                    <li>
-                        <div class='input-line full-width' style="text-align: left">actor</div>
-                    </li>
-                    <li>
-                        <div class='input-line full-width' style="text-align: left">actor</div>
-                    </li>
+                <label>Любимые актёры</label>
+                <ul>
+                    <% if(user.favActors !== []) { %>
+                        <% user.favActors.forEach((actor) => { %>
+                            <li>
+                                <div class='input-line full-width' style="text-align: left">
+                                    <%= actor %>
+                                </div>
+                            </li>
+                        <% }); %>
+                    <% } else { %>
+                        <li>
+                            <div class='input-line full-width' style="text-align: left">
+                                Не указаны
+                            </div>
+                        </li>
+                    <% } %>
                 </ul>
-                <label for="countries">Список стран производителей:</label>
-                <datalist id="countriesDatalist"></datalist>
-                <ul id="countriesList">
-                    <li>
-                        <div class='input-line full-width' style="text-align: left">Russia</div>
-                    </li>
-                </ul>
-                <label for="minRating">Минимальный рейтинг фильма/сериала(по 10 балльной шкале):</label>
-                <div class='input-line full-width' style="text-align: left">10</div>
-                <form method="post" action="/account/settings">
+                <label>Минимальный рейтинг фильма/сериала(по 10 балльной шкале)</label>
+                <% if(user.minRating !== null) { %>
+                    <div class ='input-line full-width' style="text-align: left">
+                        <%= user.minRating %>
+                    </div>
+                <% } else { %>
+                    <div class ='input-line full-width' style="text-align: left">
+                        Не указан
+                    </div>
+                <% } %>
+                <form method="post" action="/account/settings/reset">
                     <div class="button">
                         <input type="submit" value="Сбросить настройки" class="ghost-round full-width">
                     </div>

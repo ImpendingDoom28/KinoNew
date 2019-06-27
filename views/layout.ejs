@@ -94,23 +94,23 @@
                 const results = JSON.parse(this.responseText).results;
                 results.forEach((item) => {
                     slider.innerHTML += '<div class="slide"><div class="slide-cursor">';
-                    slider.innerHTML += '<a href="https://www.themoviedb.org/movie/"' + item.id + '&language=ru-RU>';
-                    slider.innerHTML += '<img src=https://image.tmdb.org/t/p/w600_and_h900_bestv2' + item.poster_path + '>';
+                    slider.innerHTML += '<a href="https://www.themoviedb.org/movie/"' + item.id + '"&language=ru-RU">';
+                    slider.innerHTML += '<img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2' + item.poster_path + '">';
                     slider.innerHTML += '<div class="slide-layer_top slide-layer_scale"><div class="slide-text">';
                     slider.innerHTML += item.title;
                     slider.innerHTML += '</div></div></a></div></div>';
                 });
-            }
+            };
             console.log(slider.innerHTML);
             xhr.onerror = function () {
                 console.log('Ошибка ' + this.status);
             };
-            xhr.send()
+            xhr.send();
         }
     </script>
     <title>KinoNew</title>
 </head>
-<body onload="findMovies()">
+<body onload="findMovies()" >
 <div class="container">
     <%- body %>
 </div>
