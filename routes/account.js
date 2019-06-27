@@ -22,22 +22,27 @@ function isUnique(toCheck, array) {
 }
 
 function isGenre(arrayToCheck) {
-    if(arrayToCheck !== '') {
+    if(arrayToCheck !== '' || arrayToCheck.length > 0) {
+        let bigIsGenre = true;
         const genres = JSON.parse(req.getBody());
         arrayToCheck.forEach((item) => {
-            let help = false;
-            genres.genres.forEach((genre) => {
-                if(item === genre.name) {
-                    help = true;
+            if(item !== '') {
+                let isGenre = false;
+                genres.genres.forEach((genre) => {
+                    if(item === genre.name) {
+                        isGenre = true;
+                    }
+                });
+                if(isGenre === false) {
+                    bigIsGenre = isGenre;
                 }
-            });
-            if(!help) {
-                return false;
             }
         });
-        return true;
+        return bigIsGenre;
     } else {
-        return true;
+        if(arrayToCheck === '') {
+            return false;
+        }
     }
 }
 function getGenreId(genre) {
@@ -53,61 +58,60 @@ function getGenreId(genre) {
 }
 
 router.post('/settings', checkIsLogged, (req, res, next) => {
-    const {favGenre, favActors, minRating} = req.body;
+    const {favGenres, favActors, minRating} = req.body;
     const errors = [];
-    console.log(favGenre);
-    if(favGenre.length === 0 && favActors.length === 0) {
-        errors.push({msg: 'Вы ничего не указали!'});
+    console.log(favGenres);
+    if(favGenres.length === 0 && favActors.length === 0) {
+        errors.push({msg: 'Вы не указали любимых актёров или любимые жанры!'});
     } else {
-        if(!isGenre(favGenre)) {
+        if(!isGenre(favGenres)) {
             errors.push({msg: 'Вы указали не допустимый жанр!'});
+
         }
     }
-    if(typeof minRating !== Number && minRating !== '') {
+    const type = typeof parseInt(minRating);
+    if(type !== "number") {
         errors.push({msg: 'Минимальный рейтинг должен быть числом!'});
     } else {
-        if((minRating < 1 || minRating > 10) && minRating !== '') {
+        if((parseInt(minRating) < 1 || parseInt(minRating) > 10) && minRating !== '') {
             errors.push({msg: 'Минимальный рейтинг должен быть в пределах от 1 до 10!'});
         }
     }
     if(errors.length > 0) {
-        res.render('settings', {errors, minRating});
+        res.render('settings', {errors, user:req.user, favGenres, favActors, minRating});
     } else {
-        User.findOne({email: req.user.email})
-            .then((user) => {
-                if(user) {
-                    if(favGenre.length > 0) {
-                        favGenre.forEach((item) => {
-                            if(item !== '' && isUnique(item, user.favGenres)) {
-                                const id = getGenreId(item);
-                                user.favGenres.push(item);
-                                user.favGenresIDs.push(id[0]);
-                            }
-                        });
-                    }
-                    if(favActors.length > 0) {
-                        favActors.forEach((item) => {
-                            if(item !== '' && isUnique(item, user.favActors)) {
-                                user.favActors.push(item);
-                            }
-                        });
-                    }
-                    if(user.minRating === '') {
-                        user.minRating = minRating;
-                    }
-                    console.log(user);
-                    res.render('settings', {
-                        success_msg:"Ваши настройки успешно сохранены!",
-                        user: user
-                    });
-                } else {
-                    errors.push({msg: 'Произошла ошибка в базе данных сервера, пожалуйста, обратитесь в тех. поддержку'});
-                    res.render('settings', {errors, favGenre, favActors, countries, minRating});
+        const newFavGenres = [];
+        const newFavGenresIDs = [];
+        const newFavActors = [];
+        let newMinRating;
+        if(favGenres.length > 0) {
+            favGenres.forEach((item) => {
+                if(item !== '' && isUnique(item, req.user.favGenres)) {
+                    const id = getGenreId(item);
+                    newFavGenres.push(item);
+                    newFavGenresIDs.push(id[0]);
+                }
+            });
+        }
+        if(favActors.length > 0) {
+            favActors.forEach((item) => {
+                if(item !== '' && isUnique(item, req.user.favActors)) {
+                    newFavActors.push(item);
+                }
+            });
+        }
+        if(req.user.minRating === null) {
+            newMinRating = parseInt(minRating);
+        }
+        User.findOneAndUpdate({email: req.user.email}, {favGenres: newFavGenres, favActors: newFavActors, favGenresIDs: newFavGenresIDs, minRating: newMinRating}, null,
+            (err, user) => {
+                if(err) {
+                    errors.push(err);
+                    res.render('settings', {errors, user:user});
                 }
             })
-            .catch((err) => {
-                errors.push({msg: err});
-                res.render('settings', {errors});
+            .then((user) => {
+                res.render('settings', {success_msg: 'Ваши настройки успешно сохранены!', user: user})
             });
     }
 });
@@ -116,36 +120,22 @@ router.post('/settings/reset', (req, res, next) => {
     const user = req.user;
     const errors = [];
     console.log('Сбрасываем настройки...');
-    User.findOne({email: user.email})
-        .then((user) => {
-            if(user) {
-                console.log('Нашли пользователя');
-                user.favGenres = [];
-                user.favGenresIDs = [];
-                user.favActors = [];
-                user.favActorsIDs = [];
-                user.countries = [];
-                user.minRating = '';
-                res.render('settings', {
-                    success_msg : 'Ваши настройки успешно сброшены!',
-                    user: user
-                });
-                console.log(user);
-            } else {
+    User.findOneAndUpdate({email: user.email}, { favGenres: [], favGenresIDs: [], favActors: [], minRating: null}, null,
+        (err, user) => {
+            if(err) {
                 errors.push({msg: 'Произошла ошибка в базе данных сервера, пожалуйста, обратитесь в тех. поддержку'});
                 res.render('settings', {
                     errors,
                     user: user
                 });
             }
-        })
-        .catch((err) => {
-            errors.push(err);
+         })
+        .then((user) => {
             res.render('settings', {
-                errors,
+                success_msg : 'Ваши настройки успешно сброшены!',
                 user: user
             });
-        });
+        })
 });
 
 module.exports = router;

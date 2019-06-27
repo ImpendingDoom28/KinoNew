@@ -44,7 +44,7 @@ router.get('/home', checkIsLogged, (req, res) => {
             }
         }
 
-        res.render('home', movies);
+        res.render('home', {movies, user:req.user});
     });
 
 });
