@@ -3,25 +3,25 @@
 <div class="container2">
     <div class='content'>
         <div class='welcome'><h1 class="welcome-text">❤Добро пожаловать в
-                настройки <%= typeof name != 'undefined' ? ', ' + user.name : '' %>
+                настройки <%= typeof user.name != 'undefined' ? ', ' + user.name : '' %>
                 !❤<br/>Здесь вы сможете настроить новинки по своим предпочтениям!📽🎞️</h1></div>
         <div class="inputs">
             <div class='input-field'>
             <form method="post" action="/account/settings">
                 <% include partials/messages.ejs %>
-                <label for="favGenre">Список любимых жанров:</label>
+                <label for="favGenres">Список любимых жанров:</label>
                 <datalist id="favGenreDatalist"></datalist>
                     <ul id="favGenresList">
                         <li>
                             <input
-                                    id="favGenre"
-                                    name="favGenre"
+                                    id="favGenres"
+                                    name="favGenres"
                                     list="favGenreDatalist"
                                     placeholder="Начните вводить жанр..."
                                     class='input-line full-width'
                                     onfocus="getGenres()"
                                     onchange="addNewRowGenres()"
-                                    value="<%= typeof favGenre != 'undefined' ? favGenre : '' %>"
+                                    value="<%= typeof favGenres != 'undefined' ? favGenres : '' %>"
                             />
                         </li>
                     </ul>
@@ -45,7 +45,6 @@
                     <input
                             id="minRating"
                             name="minRating"
-                            list="minRating"
                             placeholder="Введите рейтинг"
                             class='input-line full-width'
                             value="<%= typeof minRating != 'undefined' ? minRating : '' %>"
@@ -60,7 +59,7 @@
                 <div class="title_form"><h1>Ваши настройки:</h1></div>
                 <label>Любимые жанры:</label>
                 <ul>
-                    <% if(user.favGenres !== []) { %>
+                    <% if(typeof user.favGenres !== "undefined") { %>
                         <% user.favGenres.forEach((genre) => { %>
                             <li>
                                 <div class='input-line full-width' style="text-align: left">
@@ -78,7 +77,7 @@
                 </ul>
                 <label>Любимые актёры</label>
                 <ul>
-                    <% if(user.favActors !== []) { %>
+                    <% if(typeof user.favActors !== "undefined") { %>
                         <% user.favActors.forEach((actor) => { %>
                             <li>
                                 <div class='input-line full-width' style="text-align: left">
