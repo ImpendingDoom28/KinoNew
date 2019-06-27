@@ -21,7 +21,7 @@ const db = require('./config/keys').MongoURI;
 app.use(express.static(__dirname + '/public'));
 
 //Connect to MongoDB
-mongoose.connect(db, { useNewUrlParser: true })
+mongoose.connect(db, { useNewUrlParser: true, useFindAndModify: false })
     .then(() => {
         console.log('MongoDB Connected....');
         init();
@@ -56,7 +56,6 @@ app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
-    res.locals.movies = req.flash('movies');
     next();
 });
 
