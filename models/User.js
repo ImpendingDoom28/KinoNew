@@ -28,9 +28,6 @@ const UserSchema = new mongoose.Schema({
     favActorsIDs: {
         type: []
     },
-    countries: {
-        type: [String]
-    },
     minRating: {
         type: Number
     }
